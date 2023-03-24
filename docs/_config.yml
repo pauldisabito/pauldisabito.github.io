@@ -1,0 +1,5 @@
+theme: jekyll-theme-cayman
+permalink: /docs/:title/
+plugins:
+  - jekyll-relative-links
+  - jekyll-redirect-from

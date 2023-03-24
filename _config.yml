@@ -1,9 +1,18 @@
 title: B2C Commerce Developer Documentation
 # Disable caching
 cache: false
-remote_theme: pages-themes/cayman
+theme: jekyll-theme-cayman
 plugins:
-  - jekyll-remote-theme
-  - jekyll-search
-gems:
-  - jekyll-search
+  - jekyll_search
+  - jekyll-relative-links
+  - jekyll-redirect-from
+include:
+  - _includes
+  - _layouts
+  - _sass
+  - assets/css
+  - assets/js
+  - docs/
+baseurl: "/"
+search:
+  json: true

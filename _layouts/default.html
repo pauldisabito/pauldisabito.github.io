@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="search-data" content="{{ '/search.json' | relative_url }}">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/cayman.css' | relative_url }}">
+  {% if site.search.json %}
+    <script src="{{ '/assets/js/simple-jekyll-search.min.js' | relative_url }}"></script>
+  {% endif %}
+  <style>
+    /* add custom styles for the header */
+    header {
+      background-image: url('https://help.salesforce.com/resource/1679011705000/HTCommunityCustomImages/png/hero-background-desktop.png');
+      background-size: cover;
+      height: 200px;
+      position: relative;
+    }
+    .search-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 100%;
+    }
+    input[type="text"] {
+      width: 50%;
+      max-width: 500px;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+    input[type="submit"]:hover {
+      background-color: #666;
+    }
+    label[for="search-input"] {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="search-container">
+        <form id="search-form" action="#" method="get">
+          <label for="search-input">How can we help?</label>
+          <input type="text" id="search-input" name="q" placeholder="Search...">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </header>
+    <div id="results-container"></div>
+    <main>
+      {{ content }}
+    </main>
+    <footer>
+      <p>&copy; {{ site.title }} {{ site.time | date: '%Y' }}</p>
+    </footer>
+  </div>
+  {% if site.search.json %}
+    <script>
+      const search = SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('results-container'),
+        json: '{{ site.baseurl }}/search.json'
+      });
+  
+      const searchForm = document.getElementById('search-form');
+      searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        search.search(document.getElementById('search-input').value);
+      });
+    </script>
+  {% endif %}
+</body>
+</html>
