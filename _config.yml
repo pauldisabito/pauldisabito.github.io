@@ -3,4 +3,4 @@ description: View documentation for the B2C Commerce API and more.
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-cayman
-baseurl: /
+url: https://pauldisabito.github.io/
