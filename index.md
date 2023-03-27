@@ -1,5 +1,6 @@
 ---
 layout: default_no_home
+title: Salesforce B2C Developer Documentation Resources
 ---
 # Current Release (23.3)
 
