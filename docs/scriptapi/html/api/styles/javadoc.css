@@ -2,7 +2,7 @@
 body {
 	font-family: "Salesforce Sans", Helvetica, Arial, sans-serif;
 	font-size: .8em;
-	line-height:1.4em;
+	line-height:1.5em;
 
 }
 
@@ -81,7 +81,7 @@ body {
 .bannerItem {
 	float: left;
 /*	background: #EEEEFF;  */
-	margin: 10px 10px 10px 10px;
+	margin: 0.25rem 0.25rem 0.25rem 0.25rem;
 	color: gray;
 	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
 }
@@ -95,16 +95,17 @@ body {
 
 .header {
 
-	padding: 4px;
+	padding: 6px;
 	background: #CCCCCC;
 	/* font-weight: bold; */
 	font-size: 1.2em;
 	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
 	border:none;
 	border-width:1;
-	border-color:gray;
+	border-color:#1798c1;
+	;
 	color:white;
-	background-color:rgb(119, 119, 119);
+	background-color:#1798c1;
 }
 
 .classHeader {
@@ -140,10 +141,11 @@ body {
 	content: "Package ";
 }
 .packageName {
-	padding: 4px;
+	padding: 6px;
 	font-size: 1.2em;
 	/* font-weight: bold; */
-	background-color:rgb(119, 119, 119);
+	background-color:#1798c1;
+	;
 	color:white;
 }
 

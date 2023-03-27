@@ -1,8 +1,4 @@
 ---
 ---
 
-@import '../../_sass/cayman';
-@import "{{ site.theme }}";
-label[for="search-input"] {
-  color: black;
-}
+@import 'jekyll-theme-cayman';

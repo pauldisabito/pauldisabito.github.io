@@ -29,7 +29,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.5;
   color: $body-text-color;
 }
@@ -110,6 +110,7 @@ a {
   text-align: center;
   background-color: $header-bg-color;
   background-image: linear-gradient(120deg, $header-bg-color-secondary, $header-bg-color);
+  position: relative;
 
   @include large {
     padding: 5rem 6rem;
@@ -129,15 +130,15 @@ a {
   margin-bottom: 0.1rem;
 
   @include large {
-    font-size: 3.25rem;
+    font-size: 2.5rem;
   }
 
   @include medium {
-    font-size: 2.25rem;
+    font-size: 1.75rem;
   }
 
   @include small {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -163,19 +164,19 @@ a {
   word-wrap: break-word;
 
   :first-child {
-    margin-top: 0;
+    margin: .25rem;
   }
 
   @include large {
     max-width: 64rem;
     padding: 2rem 6rem;
     margin: 0 auto;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   @include medium {
     padding: 2rem 4rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   @include small {
@@ -375,4 +376,28 @@ a {
 
 .site-footer-credits {
   color: $blockquote-text-color;
+}
+
+li {
+  margin: 0.25rem
+
+}
+
+#homeLink {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+#homeLink a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0072c6;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+#homeLink a:hover {
+  background-color: #0059a2;
 }

@@ -1,18 +1,6 @@
-title: B2C Commerce Developer Documentation
-# Disable caching
-cache: false
+title: Salesforce B2C Developer Documentation Resources
+description: View documentation for the B2C Commerce API and more.
+show_downloads: true
+google_analytics:
 theme: jekyll-theme-cayman
-plugins:
-  - jekyll_search
-  - jekyll-relative-links
-  - jekyll-redirect-from
-include:
-  - _includes
-  - _layouts
-  - _sass
-  - assets/css
-  - assets/js
-  - docs/
-baseurl: "/"
-search:
-  json: true
+baseurl: /
