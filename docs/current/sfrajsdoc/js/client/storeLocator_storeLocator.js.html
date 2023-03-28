@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFRA Server-side Javascript - Source: storeLocator/storeLocator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-menu" viewBox="0 0 1024 1024">
+    <title>menu</title>
+    <path class="path1" d="M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"></path>
+</symbol>
+</defs>
+</svg>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger menu-icon" />
+<label for="nav-trigger"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></label>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SFRA</a> /
+        <a href="index.html">Client-side JS</a> /
+        Source: storeLocator/storeLocator.js
+    </h2>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* globals google */
+'use strict';
+
+/**
+ * appends params to a url
+ * @param {string} url - Original url
+ * @param {Object} params - Parameters to append
+ * @returns {string} result url with appended parameters
+ */
+function appendToUrl(url, params) {
+    var newUrl = url;
+    newUrl += (newUrl.indexOf('?') !== -1 ? '&amp;' : '?') + Object.keys(params).map(function (key) {
+        return key + '=' + encodeURIComponent(params[key]);
+    }).join('&amp;');
+
+    return newUrl;
+}
+
+/**
+ * Uses google maps api to render a map
+ */
+function maps() {
+    var map;
+    var infowindow = new google.maps.InfoWindow();
+
+    // Init U.S. Map in the center of the viewport
+    var latlng = new google.maps.LatLng(37.09024, -95.712891);
+    var mapOptions = {
+        scrollwheel: false,
+        zoom: 4,
+        center: latlng
+    };
+
+    map = new google.maps.Map($('.map-canvas')[0], mapOptions);
+    var mapdiv = $('.map-canvas').attr('data-locations');
+
+    mapdiv = JSON.parse(mapdiv);
+
+    var bounds = new google.maps.LatLngBounds();
+
+    // Customized google map marker icon with svg format
+    var markerImg = {
+        path: 'M13.5,30.1460153 L16.8554555,25.5 L20.0024287,25.5 C23.039087,25.5 25.5,' +
+            '23.0388955 25.5,20.0024287 L25.5,5.99757128 C25.5,2.96091298 23.0388955,0.5 ' +
+            '20.0024287,0.5 L5.99757128,0.5 C2.96091298,0.5 0.5,2.96110446 0.5,5.99757128 ' +
+            'L0.5,20.0024287 C0.5,23.039087 2.96110446,25.5 5.99757128,25.5 L10.1445445,' +
+            '25.5 L13.5,30.1460153 Z',
+        fillColor: '#0070d2',
+        fillOpacity: 1,
+        scale: 1.1,
+        strokeColor: 'white',
+        strokeWeight: 1,
+        anchor: new google.maps.Point(13, 30),
+        labelOrigin: new google.maps.Point(12, 12)
+    };
+
+    Object.keys(mapdiv).forEach(function (key) {
+        var item = mapdiv[key];
+        var lable = parseInt(key, 10) + 1;
+        var storeLocation = new google.maps.LatLng(item.latitude, item.longitude);
+        var marker = new google.maps.Marker({
+            position: storeLocation,
+            map: map,
+            title: item.name,
+            icon: markerImg,
+            label: { text: lable.toString(), color: 'white', fontSize: '16px' }
+        });
+
+        marker.addListener('click', function () {
+            infowindow.setOptions({
+                content: item.infoWindowHtml
+            });
+            infowindow.open(map, marker);
+        });
+
+        // Create a minimum bound based on a set of storeLocations
+        bounds.extend(marker.position);
+    });
+    // Fit the all the store marks in the center of a minimum bounds when any store has been found.
+    if (mapdiv &amp;&amp; mapdiv.length !== 0) {
+        map.fitBounds(bounds);
+    }
+}
+
+/**
+ * Renders the results of the search and updates the map
+ * @param {Object} data - Response from the server
+ */
+function updateStoresResults(data) {
+    var $resultsDiv = $('.results');
+    var $mapDiv = $('.map-canvas');
+    var hasResults = data.stores.length > 0;
+
+    if (!hasResults) {
+        $('.store-locator-no-results').show();
+    } else {
+        $('.store-locator-no-results').hide();
+    }
+
+    $resultsDiv.empty()
+        .data('has-results', hasResults)
+        .data('radius', data.radius)
+        .data('search-key', data.searchKey);
+
+    $mapDiv.attr('data-locations', data.locations);
+
+    if ($mapDiv.data('has-google-api')) {
+        maps();
+    } else {
+        $('.store-locator-no-apiKey').show();
+    }
+
+    if (data.storesResultsHtml) {
+        $resultsDiv.append(data.storesResultsHtml);
+    }
+}
+
+/**
+ * Search for stores with new zip code
+ * @param {HTMLElement} element - the target html element
+ * @returns {boolean} false to prevent default event
+ */
+function search(element) {
+    var dialog = element.closest('.in-store-inventory-dialog');
+    var spinner = dialog.length ? dialog.spinner() : $.spinner();
+    spinner.start();
+    var $form = element.closest('.store-locator');
+    var radius = $('.results').data('radius');
+    var url = $form.attr('action');
+    var urlParams = { radius: radius };
+
+    var payload = $form.is('form') ? $form.serialize() : { postalCode: $form.find('[name="postalCode"]').val() };
+
+    url = appendToUrl(url, urlParams);
+
+    $.ajax({
+        url: url,
+        type: $form.attr('method'),
+        data: payload,
+        dataType: 'json',
+        success: function (data) {
+            spinner.stop();
+            updateStoresResults(data);
+            $('.select-store').prop('disabled', true);
+        }
+    });
+    return false;
+}
+
+module.exports = {
+    init: function () {
+        if ($('.map-canvas').data('has-google-api')) {
+            maps();
+        } else {
+            $('.store-locator-no-apiKey').show();
+        }
+
+        if (!$('.results').data('has-results')) {
+            $('.store-locator-no-results').show();
+        }
+    },
+
+    detectLocation: function () {
+        // clicking on detect location.
+        $('.detect-location').on('click', function () {
+            $.spinner().start();
+            if (!navigator.geolocation) {
+                $.spinner().stop();
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var $detectLocationButton = $('.detect-location');
+                var url = $detectLocationButton.data('action');
+                var radius = $('.results').data('radius');
+                var urlParams = {
+                    radius: radius,
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude
+                };
+
+                url = appendToUrl(url, urlParams);
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        $.spinner().stop();
+                        updateStoresResults(data);
+                        $('.select-store').prop('disabled', true);
+                    }
+                });
+            });
+        });
+    },
+
+    search: function () {
+        $('.store-locator-container form.store-locator').submit(function (e) {
+            e.preventDefault();
+            search($(this));
+        });
+        $('.store-locator-container .btn-storelocator-search[type="button"]').click(function (e) {
+            e.preventDefault();
+            search($(this));
+        });
+    },
+
+    changeRadius: function () {
+        $('.store-locator-container .radius').change(function () {
+            var radius = $(this).val();
+            var searchKeys = $('.results').data('search-key');
+            var url = $(this).data('action-url');
+            var urlParams = {};
+
+            if (searchKeys.postalCode) {
+                urlParams = {
+                    radius: radius,
+                    postalCode: searchKeys.postalCode
+                };
+            } else if (searchKeys.lat &amp;&amp; searchKeys.long) {
+                urlParams = {
+                    radius: radius,
+                    lat: searchKeys.lat,
+                    long: searchKeys.long
+                };
+            }
+
+            url = appendToUrl(url, urlParams);
+            var dialog = $(this).closest('.in-store-inventory-dialog');
+            var spinner = dialog.length ? dialog.spinner() : $.spinner();
+            spinner.start();
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    spinner.stop();
+                    updateStoresResults(data);
+                    $('.select-store').prop('disabled', true);
+                }
+            });
+        });
+    },
+    selectStore: function () {
+        $('.store-locator-container').on('click', '.select-store', (function (e) {
+            e.preventDefault();
+            var selectedStore = $(':checked', '.results-card .results');
+            var data = {
+                storeID: selectedStore.val(),
+                searchRadius: $('#radius').val(),
+                searchPostalCode: $('.results').data('search-key').postalCode,
+                storeDetailsHtml: selectedStore.siblings('label').find('.store-details').html(),
+                event: e
+            };
+
+            $('body').trigger('store:selected', data);
+        }));
+    },
+    updateSelectStoreButton: function () {
+        $('body').on('change', '.select-store-input', (function () {
+            $('.select-store').prop('disabled', false);
+        }));
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav id="navigation" class="navigation">
+    <div class="search"><input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations"></div>
+    <h2><a href="../../index.html">Home</a></h2><h3>Tutorials</h3><ul><li class="item" data-name="Controllers"><span class="expand">&nbsp;</span><a href="tutorial-Controllers.html">Controllers</a></li><li class="item" data-name="Payment"><span class="expand">&nbsp;</span><a href="tutorial-Payment.html">Payment processing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSpinner">addSpinner</a></li><li><a href="global.html#appendToUrl">appendToUrl</a></li><li><a href="global.html#applyModals">applyModals</a></li><li><a href="global.html#attributeSelect">attributeSelect</a></li><li><a href="global.html#chooseBonusProducts">chooseBonusProducts</a></li><li><a href="global.html#clearBillingAddressFormValues">clearBillingAddressFormValues</a></li><li><a href="global.html#clearCreditCardForm">clearCreditCardForm</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearFormErrors">clearFormErrors</a></li><li><a href="global.html#clearModals">clearModals</a></li><li><a href="global.html#clearPreviousErrors">clearPreviousErrors</a></li><li><a href="global.html#clearShippingForms">clearShippingForms</a></li><li><a href="global.html#confirmDelete">confirmDelete</a></li><li><a href="global.html#createCarousel">createCarousel</a></li><li><a href="global.html#createCategoryAnchor">createCategoryAnchor</a></li><li><a href="global.html#createErrorNotification">createErrorNotification</a></li><li><a href="global.html#createNewShipment">createNewShipment</a></li><li><a href="global.html#createProductAnchor">createProductAnchor</a></li><li><a href="global.html#displayMessage">displayMessage</a></li><li><a href="global.html#editMultiShipAddress">editMultiShipAddress</a></li><li><a href="global.html#editOrEnterMultiShipInfo">editOrEnterMultiShipInfo</a></li><li><a href="global.html#enterMultishipView">enterMultishipView</a></li><li><a href="global.html#fillDomElement">fillDomElement</a></li><li><a href="global.html#fillModalElement">fillModalElement</a></li><li><a href="global.html#findItem">findItem</a></li><li><a href="global.html#getAddressFieldsFromUI">getAddressFieldsFromUI</a></li><li><a href="global.html#getAddToCartUrl">getAddToCartUrl</a></li><li><a href="global.html#getAttributesHtml">getAttributesHtml</a></li><li><a href="global.html#getChildProducts">getChildProducts</a></li><li><a href="global.html#getContent">getContent</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getEinsteinUtils">getEinsteinUtils</a></li><li><a href="global.html#getModalHtmlElement">getModalHtmlElement</a></li><li><a href="global.html#getOptions">getOptions</a></li><li><a href="global.html#getPidValue">getPidValue</a></li><li><a href="global.html#getQuantitySelected">getQuantitySelected</a></li><li><a href="global.html#getQuantitySelector">getQuantitySelector</a></li><li><a href="global.html#getSuggestions">getSuggestions</a></li><li><a href="global.html#getSuggestionsWrapper">getSuggestionsWrapper</a></li><li><a href="global.html#handleArrow">handleArrow</a></li><li><a href="global.html#handleMoreContentBelowIcon">handleMoreContentBelowIcon</a></li><li><a href="global.html#handlePostCartAdd">handlePostCartAdd</a></li><li><a href="global.html#handleRefinements">handleRefinements</a></li><li><a href="global.html#handleVariantResponse">handleVariantResponse</a></li><li><a href="global.html#hiddenSlides">hiddenSlides</a></li><li><a href="global.html#isMobileSearch">isMobileSearch</a></li><li><a href="global.html#loadFormErrors">loadFormErrors</a></li><li><a href="global.html#loadRecommendations">loadRecommendations</a></li><li><a href="global.html#maps">maps</a></li><li><a href="global.html#miniCartReportingUrl">miniCartReportingUrl</a></li><li><a href="global.html#optionValueForAddress">optionValueForAddress</a></li><li><a href="global.html#parseHtml">parseHtml</a></li><li><a href="global.html#parseResults">parseResults</a></li><li><a href="global.html#populateAddressSummary">populateAddressSummary</a></li><li><a href="global.html#positionSuggestions">positionSuggestions</a></li><li><a href="global.html#processNonSwatchValues">processNonSwatchValues</a></li><li><a href="global.html#processRecommendationsTile">processRecommendationsTile</a></li><li><a href="global.html#processResponse">processResponse</a></li><li><a href="global.html#processSwatchValues">processSwatchValues</a></li><li><a href="global.html#removeSpinner">removeSpinner</a></li><li><a href="global.html#screenSize">screenSize</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#selectShippingMethodAjax">selectShippingMethodAjax</a></li><li><a href="global.html#shippingFormResponse">shippingFormResponse</a></li><li><a href="global.html#showConsentModal">showConsentModal</a></li><li><a href="global.html#showControls">showControls</a></li><li><a href="global.html#tearDownSuggestions">tearDownSuggestions</a></li><li><a href="global.html#toggleSuggestionsIcon">toggleSuggestionsIcon</a></li><li><a href="global.html#updateApproachingDiscounts">updateApproachingDiscounts</a></li><li><a href="global.html#updateAttrs">updateAttrs</a></li><li><a href="global.html#updateAvailability">updateAvailability</a></li><li><a href="global.html#updateBillingAddressFormValues">updateBillingAddressFormValues</a></li><li><a href="global.html#updateBillingAddressSelector">updateBillingAddressSelector</a></li><li><a href="global.html#updateBillingInformation">updateBillingInformation</a></li><li><a href="global.html#updateCartTotals">updateCartTotals</a></li><li><a href="global.html#updateDom">updateDom</a></li><li><a href="global.html#updateMultiShipInformation">updateMultiShipInformation</a></li><li><a href="global.html#updateOptions">updateOptions</a></li><li><a href="global.html#updateOrderProductSummaryInformation">updateOrderProductSummaryInformation</a></li><li><a href="global.html#updatePaymentInformation">updatePaymentInformation</a></li><li><a href="global.html#updatePLIShippingSummaryInformation">updatePLIShippingSummaryInformation</a></li><li><a href="global.html#updateProductDetails">updateProductDetails</a></li><li><a href="global.html#updateProductLineItemShipmentUUIDs">updateProductLineItemShipmentUUIDs</a></li><li><a href="global.html#updateQuantities">updateQuantities</a></li><li><a href="global.html#updateShippingAddressFormValues">updateShippingAddressFormValues</a></li><li><a href="global.html#updateShippingAddressSelector">updateShippingAddressSelector</a></li><li><a href="global.html#updateShippingInformation">updateShippingInformation</a></li><li><a href="global.html#updateShippingMethodList">updateShippingMethodList</a></li><li><a href="global.html#updateShippingMethods">updateShippingMethods</a></li><li><a href="global.html#updateShippingSummaryInformation">updateShippingSummaryInformation</a></li><li><a href="global.html#updateSortOptions">updateSortOptions</a></li><li><a href="global.html#updateStoresResults">updateStoresResults</a></li><li><a href="global.html#updateTotals">updateTotals</a></li><li><a href="global.html#validateBasket">validateBasket</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#viewMultishipAddress">viewMultishipAddress</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Salesforce Commerce Cloud<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+</footer>
+
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/main.js"></script>
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

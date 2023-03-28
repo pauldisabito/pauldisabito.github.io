@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteGenesis Server-side Javascript - Module: models/TransientAddressModel</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-menu" viewBox="0 0 1024 1024">
+    <title>menu</title>
+    <path class="path1" d="M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"></path>
+</symbol>
+</defs>
+</svg>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger menu-icon" />
+<label for="nav-trigger"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></label>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SiteGenesis</a> /
+        <a href="index.html">Server-side JS</a> /
+        Module: models/TransientAddressModel
+    </h2>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Model for transient address information.</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="module:models/TransientAddressModel"><span class="type-signature"></span>module:models/TransientAddressModel<span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>The TransientAddress class</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-models_TransientAddressModel-TransientAddressModel.html">TransientAddressModel</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~referenceAddressUUID"><span class="type-signature">(inner) </span>referenceAddressUUID<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>The UUID of the reference address. It is set when the attributes
+are copied from a given customer or order address and is used
+to preselect addresses on a per product line item base.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~addressExists"><span class="type-signature">(inner) </span>addressExists<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Checks if the address already exists in an array of addresses
+for multishipping checkout.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~copyFrom"><span class="type-signature">(inner) </span>copyFrom<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Copies the attributes from the given customer address or
+order address to this address. The function supports both
+copying from CustomerAddress and from OrderAddress.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~copyTo"><span class="type-signature">(inner) </span>copyTo<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Copies the attributes of this address to the given order address.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~equals"><span class="type-signature">(inner) </span>equals<span class="signature">(address)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Returns true if the relevant fields of the addresses are all equal.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="https://info.demandware.com/DOC3/topic/com.demandware.dochelp/DWAPP-15.3-API-doc/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The address to compare the transient address to</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>true if both addresses are equal, false otherwise.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~storeAddressTo"><span class="type-signature">(inner) </span>storeAddressTo<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Copies the attributes of a store's address to the given order address.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html">app_storefront_controllers/cartridge/scripts/models/TransientAddressModel.js</a>, <a href="app_storefront_controllers_cartridge_scripts_models_TransientAddressModel.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav id="navigation" class="navigation">
+    <div class="search"><input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations"></div>
+    <h2><a href="../../index.html">Home</a></h2><h3>Modules</h3><ul><li class="item" data-name="module:app"><span class="expand">+</span><a href="module-app.html">app</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:app.getController"><a href="module-app.html#.getController">getController</a></li><li data-name="module:app.getForm"><a href="module-app.html#.getForm">getForm</a></li><li data-name="module:app.getModel"><a href="module-app.html#.getModel">getModel</a></li><li data-name="module:app.getView"><a href="module-app.html#.getView">getView</a></li></ul></li><li class="item" data-name="module:controllers/ABTestEvent"><span class="expand">+</span><a href="module-controllers_ABTestEvent.html">controllers/ABTestEvent</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/ABTestEvent~startCheckout"><a href="module-controllers_ABTestEvent.html#~startCheckout">startCheckout</a></li></ul></li><li class="item" data-name="module:controllers/Account"><span class="expand">+</span><a href="module-controllers_Account.html">controllers/Account</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Account~editForm"><a href="module-controllers_Account.html#~editForm">editForm</a></li><li data-name="module:controllers/Account~editProfile"><a href="module-controllers_Account.html#~editProfile">editProfile</a></li><li data-name="module:controllers/Account~includeNavigation"><a href="module-controllers_Account.html#~includeNavigation">includeNavigation</a></li><li data-name="module:controllers/Account~passwordReset"><a href="module-controllers_Account.html#~passwordReset">passwordReset</a></li><li data-name="module:controllers/Account~passwordResetDialog"><a href="module-controllers_Account.html#~passwordResetDialog">passwordResetDialog</a></li><li data-name="module:controllers/Account~passwordResetDialogForm"><a href="module-controllers_Account.html#~passwordResetDialogForm">passwordResetDialogForm</a></li><li data-name="module:controllers/Account~passwordResetForm"><a href="module-controllers_Account.html#~passwordResetForm">passwordResetForm</a></li><li data-name="module:controllers/Account~passwordResetFormHandler"><a href="module-controllers_Account.html#~passwordResetFormHandler">passwordResetFormHandler</a></li><li data-name="module:controllers/Account~registrationForm"><a href="module-controllers_Account.html#~registrationForm">registrationForm</a></li><li data-name="module:controllers/Account~setNewPassword"><a href="module-controllers_Account.html#~setNewPassword">setNewPassword</a></li><li data-name="module:controllers/Account~setNewPasswordForm"><a href="module-controllers_Account.html#~setNewPasswordForm">setNewPasswordForm</a></li><li data-name="module:controllers/Account~show"><a href="module-controllers_Account.html#~show">show</a></li><li data-name="module:controllers/Account~startRegister"><a href="module-controllers_Account.html#~startRegister">startRegister</a></li></ul></li><li class="item" data-name="module:controllers/Address"><span class="expand">+</span><a href="module-controllers_Address.html">controllers/Address</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Address~add"><a href="module-controllers_Address.html#~add">add</a></li><li data-name="module:controllers/Address~Delete"><a href="module-controllers_Address.html#~Delete">Delete</a></li><li data-name="module:controllers/Address~edit"><a href="module-controllers_Address.html#~edit">edit</a></li><li data-name="module:controllers/Address~getAddressDetails"><a href="module-controllers_Address.html#~getAddressDetails">getAddressDetails</a></li><li data-name="module:controllers/Address~handleForm"><a href="module-controllers_Address.html#~handleForm">handleForm</a></li><li data-name="module:controllers/Address~list"><a href="module-controllers_Address.html#~list">list</a></li><li data-name="module:controllers/Address~setDefault"><a href="module-controllers_Address.html#~setDefault">setDefault</a></li></ul></li><li class="item" data-name="module:controllers/Cart"><span class="expand">+</span><a href="module-controllers_Cart.html">controllers/Cart</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Cart~addBonusProductJson"><a href="module-controllers_Cart.html#~addBonusProductJson">addBonusProductJson</a></li><li data-name="module:controllers/Cart~addCouponJson"><a href="module-controllers_Cart.html#~addCouponJson">addCouponJson</a></li><li data-name="module:controllers/Cart~addProduct"><a href="module-controllers_Cart.html#~addProduct">addProduct</a></li><li data-name="module:controllers/Cart~addToWishlist"><a href="module-controllers_Cart.html#~addToWishlist">addToWishlist</a></li><li data-name="module:controllers/Cart~continueShopping"><a href="module-controllers_Cart.html#~continueShopping">continueShopping</a></li><li data-name="module:controllers/Cart~miniCart"><a href="module-controllers_Cart.html#~miniCart">miniCart</a></li><li data-name="module:controllers/Cart~show"><a href="module-controllers_Cart.html#~show">show</a></li><li data-name="module:controllers/Cart~submitForm"><a href="module-controllers_Cart.html#~submitForm">submitForm</a></li></ul></li><li class="item" data-name="module:controllers/COBilling"><span class="expand">+</span><a href="module-controllers_COBilling.html">controllers/COBilling</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/COBilling~adjustGiftCertificates"><a href="module-controllers_COBilling.html#~adjustGiftCertificates">adjustGiftCertificates</a></li><li data-name="module:controllers/COBilling~billing"><a href="module-controllers_COBilling.html#~billing">billing</a></li><li data-name="module:controllers/COBilling~editAddress"><a href="module-controllers_COBilling.html#~editAddress">editAddress</a></li><li data-name="module:controllers/COBilling~editBillingAddress"><a href="module-controllers_COBilling.html#~editBillingAddress">editBillingAddress</a></li><li data-name="module:controllers/COBilling~getGiftCertificateBalance"><a href="module-controllers_COBilling.html#~getGiftCertificateBalance">getGiftCertificateBalance</a></li><li data-name="module:controllers/COBilling~handleBillingAddress"><a href="module-controllers_COBilling.html#~handleBillingAddress">handleBillingAddress</a></li><li data-name="module:controllers/COBilling~handleCoupon"><a href="module-controllers_COBilling.html#~handleCoupon">handleCoupon</a></li><li data-name="module:controllers/COBilling~handlePaymentSelection"><a href="module-controllers_COBilling.html#~handlePaymentSelection">handlePaymentSelection</a></li><li data-name="module:controllers/COBilling~initAddressForm"><a href="module-controllers_COBilling.html#~initAddressForm">initAddressForm</a></li><li data-name="module:controllers/COBilling~initCreditCardList"><a href="module-controllers_COBilling.html#~initCreditCardList">initCreditCardList</a></li><li data-name="module:controllers/COBilling~initEmailAddress"><a href="module-controllers_COBilling.html#~initEmailAddress">initEmailAddress</a></li><li data-name="module:controllers/COBilling~publicStart"><a href="module-controllers_COBilling.html#~publicStart">publicStart</a></li><li data-name="module:controllers/COBilling~redeemGiftCertificate"><a href="module-controllers_COBilling.html#~redeemGiftCertificate">redeemGiftCertificate</a></li><li data-name="module:controllers/COBilling~redeemGiftCertificateJson"><a href="module-controllers_COBilling.html#~redeemGiftCertificateJson">redeemGiftCertificateJson</a></li><li data-name="module:controllers/COBilling~removeGiftCertificate"><a href="module-controllers_COBilling.html#~removeGiftCertificate">removeGiftCertificate</a></li><li data-name="module:controllers/COBilling~resetPaymentForms"><a href="module-controllers_COBilling.html#~resetPaymentForms">resetPaymentForms</a></li><li data-name="module:controllers/COBilling~returnToForm"><a href="module-controllers_COBilling.html#~returnToForm">returnToForm</a></li><li data-name="module:controllers/COBilling~saveCreditCard"><a href="module-controllers_COBilling.html#~saveCreditCard">saveCreditCard</a></li><li data-name="module:controllers/COBilling~selectCreditCard"><a href="module-controllers_COBilling.html#~selectCreditCard">selectCreditCard</a></li><li data-name="module:controllers/COBilling~start"><a href="module-controllers_COBilling.html#~start">start</a></li><li data-name="module:controllers/COBilling~updateAddressDetails"><a href="module-controllers_COBilling.html#~updateAddressDetails">updateAddressDetails</a></li><li data-name="module:controllers/COBilling~updateCreditCardSelection"><a href="module-controllers_COBilling.html#~updateCreditCardSelection">updateCreditCardSelection</a></li><li data-name="module:controllers/COBilling~updateSummary"><a href="module-controllers_COBilling.html#~updateSummary">updateSummary</a></li><li data-name="module:controllers/COBilling~validateBilling"><a href="module-controllers_COBilling.html#~validateBilling">validateBilling</a></li><li data-name="module:controllers/COBilling~validatePayment"><a href="module-controllers_COBilling.html#~validatePayment">validatePayment</a></li></ul></li><li class="item" data-name="module:controllers/COCustomer"><span class="expand">+</span><a href="module-controllers_COCustomer.html">controllers/COCustomer</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/COCustomer~showLoginForm"><a href="module-controllers_COCustomer.html#~showLoginForm">showLoginForm</a></li><li data-name="module:controllers/COCustomer~start"><a href="module-controllers_COCustomer.html#~start">start</a></li></ul></li><li class="item" data-name="module:controllers/Compare"><span class="expand">+</span><a href="module-controllers_Compare.html">controllers/Compare</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Compare~addProduct"><a href="module-controllers_Compare.html#~addProduct">addProduct</a></li><li data-name="module:controllers/Compare~controls"><a href="module-controllers_Compare.html#~controls">controls</a></li><li data-name="module:controllers/Compare~removeProduct"><a href="module-controllers_Compare.html#~removeProduct">removeProduct</a></li><li data-name="module:controllers/Compare~show"><a href="module-controllers_Compare.html#~show">show</a></li></ul></li><li class="item" data-name="module:controllers/COPlaceOrder"><span class="expand">+</span><a href="module-controllers_COPlaceOrder.html">controllers/COPlaceOrder</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/COPlaceOrder~handlePayments"><a href="module-controllers_COPlaceOrder.html#~handlePayments">handlePayments</a></li><li data-name="module:controllers/COPlaceOrder~start"><a href="module-controllers_COPlaceOrder.html#~start">start</a></li><li data-name="module:controllers/COPlaceOrder~submitPaymentJSON"><a href="module-controllers_COPlaceOrder.html#~submitPaymentJSON">submitPaymentJSON</a></li></ul></li><li class="item" data-name="module:controllers/COShipping"><span class="expand">+</span><a href="module-controllers_COShipping.html">controllers/COShipping</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/COShipping~editAddress"><a href="module-controllers_COShipping.html#~editAddress">editAddress</a></li><li data-name="module:controllers/COShipping~editShippingAddress"><a href="module-controllers_COShipping.html#~editShippingAddress">editShippingAddress</a></li><li data-name="module:controllers/COShipping~getApplicableShippingMethodsJSON"><a href="module-controllers_COShipping.html#~getApplicableShippingMethodsJSON">getApplicableShippingMethodsJSON</a></li><li data-name="module:controllers/COShipping~handleShippingSettings"><a href="module-controllers_COShipping.html#~handleShippingSettings">handleShippingSettings</a></li><li data-name="module:controllers/COShipping~prepareShipments"><a href="module-controllers_COShipping.html#~prepareShipments">prepareShipments</a></li><li data-name="module:controllers/COShipping~selectShippingMethod"><a href="module-controllers_COShipping.html#~selectShippingMethod">selectShippingMethod</a></li><li data-name="module:controllers/COShipping~singleShipping"><a href="module-controllers_COShipping.html#~singleShipping">singleShipping</a></li><li data-name="module:controllers/COShipping~start"><a href="module-controllers_COShipping.html#~start">start</a></li><li data-name="module:controllers/COShipping~updateAddressDetails"><a href="module-controllers_COShipping.html#~updateAddressDetails">updateAddressDetails</a></li><li data-name="module:controllers/COShipping~updateShippingMethodList"><a href="module-controllers_COShipping.html#~updateShippingMethodList">updateShippingMethodList</a></li></ul></li><li class="item" data-name="module:controllers/COShippingMultiple"><span class="expand">+</span><a href="module-controllers_COShippingMultiple.html">controllers/COShippingMultiple</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/COShippingMultiple~addEditAddress"><a href="module-controllers_COShippingMultiple.html#~addEditAddress">addEditAddress</a></li><li data-name="module:controllers/COShippingMultiple~addEditAddressJSON"><a href="module-controllers_COShippingMultiple.html#~addEditAddressJSON">addEditAddressJSON</a></li><li data-name="module:controllers/COShippingMultiple~editAddresses"><a href="module-controllers_COShippingMultiple.html#~editAddresses">editAddresses</a></li><li data-name="module:controllers/COShippingMultiple~editForm"><a href="module-controllers_COShippingMultiple.html#~editForm">editForm</a></li><li data-name="module:controllers/COShippingMultiple~initAddressForms"><a href="module-controllers_COShippingMultiple.html#~initAddressForms">initAddressForms</a></li><li data-name="module:controllers/COShippingMultiple~multiShippingAddresses"><a href="module-controllers_COShippingMultiple.html#~multiShippingAddresses">multiShippingAddresses</a></li><li data-name="module:controllers/COShippingMultiple~multiShippingMethods"><a href="module-controllers_COShippingMultiple.html#~multiShippingMethods">multiShippingMethods</a></li><li data-name="module:controllers/COShippingMultiple~start"><a href="module-controllers_COShippingMultiple.html#~start">start</a></li><li data-name="module:controllers/COShippingMultiple~startShipments"><a href="module-controllers_COShippingMultiple.html#~startShipments">startShipments</a></li></ul></li><li class="item" data-name="module:controllers/COSummary"><span class="expand">+</span><a href="module-controllers_COSummary.html">controllers/COSummary</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/COSummary~showConfirmation"><a href="module-controllers_COSummary.html#~showConfirmation">showConfirmation</a></li><li data-name="module:controllers/COSummary~start"><a href="module-controllers_COSummary.html#~start">start</a></li><li data-name="module:controllers/COSummary~submit"><a href="module-controllers_COSummary.html#~submit">submit</a></li></ul></li><li class="item" data-name="module:controllers/Currency"><span class="expand">+</span><a href="module-controllers_Currency.html">controllers/Currency</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Currency~setSessionCurrency"><a href="module-controllers_Currency.html#~setSessionCurrency">setSessionCurrency</a></li></ul></li><li class="item" data-name="module:controllers/CustomerService"><span class="expand">+</span><a href="module-controllers_CustomerService.html">controllers/CustomerService</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/CustomerService~contactUs"><a href="module-controllers_CustomerService.html#~contactUs">contactUs</a></li><li data-name="module:controllers/CustomerService~leftNav"><a href="module-controllers_CustomerService.html#~leftNav">leftNav</a></li><li data-name="module:controllers/CustomerService~show"><a href="module-controllers_CustomerService.html#~show">show</a></li><li data-name="module:controllers/CustomerService~submit"><a href="module-controllers_CustomerService.html#~submit">submit</a></li></ul></li><li class="item" data-name="module:controllers/Default"><span class="expand">+</span><a href="module-controllers_Default.html">controllers/Default</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Default~offline"><a href="module-controllers_Default.html#~offline">offline</a></li></ul></li><li class="item" data-name="module:controllers/Error"><span class="expand">+</span><a href="module-controllers_Error.html">controllers/Error</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Error~forbidden"><a href="module-controllers_Error.html#~forbidden">forbidden</a></li><li data-name="module:controllers/Error~start"><a href="module-controllers_Error.html#~start">start</a></li></ul></li><li class="item" data-name="module:controllers/GiftCert"><span class="expand">+</span><a href="module-controllers_GiftCert.html">controllers/GiftCert</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/GiftCert~addToBasket"><a href="module-controllers_GiftCert.html#~addToBasket">addToBasket</a></li><li data-name="module:controllers/GiftCert~checkBalance"><a href="module-controllers_GiftCert.html#~checkBalance">checkBalance</a></li><li data-name="module:controllers/GiftCert~createGiftCert"><a href="module-controllers_GiftCert.html#~createGiftCert">createGiftCert</a></li><li data-name="module:controllers/GiftCert~edit"><a href="module-controllers_GiftCert.html#~edit">edit</a></li><li data-name="module:controllers/GiftCert~processAddToBasket"><a href="module-controllers_GiftCert.html#~processAddToBasket">processAddToBasket</a></li><li data-name="module:controllers/GiftCert~purchase"><a href="module-controllers_GiftCert.html#~purchase">purchase</a></li><li data-name="module:controllers/GiftCert~showError"><a href="module-controllers_GiftCert.html#~showError">showError</a></li><li data-name="module:controllers/GiftCert~showMiniCart"><a href="module-controllers_GiftCert.html#~showMiniCart">showMiniCart</a></li><li data-name="module:controllers/GiftCert~showPurchase"><a href="module-controllers_GiftCert.html#~showPurchase">showPurchase</a></li><li data-name="module:controllers/GiftCert~update"><a href="module-controllers_GiftCert.html#~update">update</a></li><li data-name="module:controllers/GiftCert~updateGiftCert"><a href="module-controllers_GiftCert.html#~updateGiftCert">updateGiftCert</a></li></ul></li><li class="item" data-name="module:controllers/GiftRegistry"><span class="expand">+</span><a href="module-controllers_GiftRegistry.html">controllers/GiftRegistry</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/GiftRegistry~addProduct"><a href="module-controllers_GiftRegistry.html#~addProduct">addProduct</a></li><li data-name="module:controllers/GiftRegistry~confirm"><a href="module-controllers_GiftRegistry.html#~confirm">confirm</a></li><li data-name="module:controllers/GiftRegistry~create"><a href="module-controllers_GiftRegistry.html#~create">create</a></li><li data-name="module:controllers/GiftRegistry~createOne"><a href="module-controllers_GiftRegistry.html#~createOne">createOne</a></li><li data-name="module:controllers/GiftRegistry~deleteList"><a href="module-controllers_GiftRegistry.html#~deleteList">deleteList</a></li><li data-name="module:controllers/GiftRegistry~editParticipant"><a href="module-controllers_GiftRegistry.html#~editParticipant">editParticipant</a></li><li data-name="module:controllers/GiftRegistry~eventParticipant"><a href="module-controllers_GiftRegistry.html#~eventParticipant">eventParticipant</a></li><li data-name="module:controllers/GiftRegistry~handleRegistryAddresses"><a href="module-controllers_GiftRegistry.html#~handleRegistryAddresses">handleRegistryAddresses</a></li><li data-name="module:controllers/GiftRegistry~selectOne"><a href="module-controllers_GiftRegistry.html#~selectOne">selectOne</a></li><li data-name="module:controllers/GiftRegistry~selectProductListInteraction"><a href="module-controllers_GiftRegistry.html#~selectProductListInteraction">selectProductListInteraction</a></li><li data-name="module:controllers/GiftRegistry~setParticipants"><a href="module-controllers_GiftRegistry.html#~setParticipants">setParticipants</a></li><li data-name="module:controllers/GiftRegistry~setProductListPublic"><a href="module-controllers_GiftRegistry.html#~setProductListPublic">setProductListPublic</a></li><li data-name="module:controllers/GiftRegistry~showRegistry"><a href="module-controllers_GiftRegistry.html#~showRegistry">showRegistry</a></li><li data-name="module:controllers/GiftRegistry~showRegistryByID"><a href="module-controllers_GiftRegistry.html#~showRegistryByID">showRegistryByID</a></li><li data-name="module:controllers/GiftRegistry~start"><a href="module-controllers_GiftRegistry.html#~start">start</a></li><li data-name="module:controllers/GiftRegistry~submitForm"><a href="module-controllers_GiftRegistry.html#~submitForm">submitForm</a></li></ul></li><li class="item" data-name="module:controllers/GiftRegistryCustomer"><span class="expand">+</span><a href="module-controllers_GiftRegistryCustomer.html">controllers/GiftRegistryCustomer</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/GiftRegistryCustomer~Show"><a href="module-controllers_GiftRegistryCustomer.html#~Show">Show</a></li><li data-name="module:controllers/GiftRegistryCustomer~ShowInteraction"><a href="module-controllers_GiftRegistryCustomer.html#~ShowInteraction">ShowInteraction</a></li></ul></li><li class="item" data-name="module:controllers/Home"><span class="expand">+</span><a href="module-controllers_Home.html">controllers/Home</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Home~deviceLayouts"><a href="module-controllers_Home.html#~deviceLayouts">deviceLayouts</a></li><li data-name="module:controllers/Home~errorNotFound"><a href="module-controllers_Home.html#~errorNotFound">errorNotFound</a></li><li data-name="module:controllers/Home~fullSite"><a href="module-controllers_Home.html#~fullSite">fullSite</a></li><li data-name="module:controllers/Home~includeHeader"><a href="module-controllers_Home.html#~includeHeader">includeHeader</a></li><li data-name="module:controllers/Home~includeHeaderCustomerInfo"><a href="module-controllers_Home.html#~includeHeaderCustomerInfo">includeHeaderCustomerInfo</a></li><li data-name="module:controllers/Home~includeHeaderMenu"><a href="module-controllers_Home.html#~includeHeaderMenu">includeHeaderMenu</a></li><li data-name="module:controllers/Home~mobileSite"><a href="module-controllers_Home.html#~mobileSite">mobileSite</a></li><li data-name="module:controllers/Home~setLayout"><a href="module-controllers_Home.html#~setLayout">setLayout</a></li><li data-name="module:controllers/Home~show"><a href="module-controllers_Home.html#~show">show</a></li></ul></li><li class="item" data-name="module:controllers/Link"><span class="expand">&nbsp;</span><a href="module-controllers_Link.html">controllers/Link</a></li><li class="item" data-name="module:controllers/Login"><span class="expand">+</span><a href="module-controllers_Login.html">controllers/Login</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Login~finishOAuthLogin"><a href="module-controllers_Login.html#~finishOAuthLogin">finishOAuthLogin</a></li><li data-name="module:controllers/Login~getSinaWeiboAccountInfo"><a href="module-controllers_Login.html#~getSinaWeiboAccountInfo">getSinaWeiboAccountInfo</a></li><li data-name="module:controllers/Login~getTargetUrl"><a href="module-controllers_Login.html#~getTargetUrl">getTargetUrl</a></li><li data-name="module:controllers/Login~handleLoginForm"><a href="module-controllers_Login.html#~handleLoginForm">handleLoginForm</a></li><li data-name="module:controllers/Login~handleOAuthLoginForm"><a href="module-controllers_Login.html#~handleOAuthLoginForm">handleOAuthLoginForm</a></li><li data-name="module:controllers/Login~handleOAuthReentry"><a href="module-controllers_Login.html#~handleOAuthReentry">handleOAuthReentry</a></li><li data-name="module:controllers/Login~Logout"><a href="module-controllers_Login.html#~Logout">Logout</a></li><li data-name="module:controllers/Login~oAuthFailed"><a href="module-controllers_Login.html#~oAuthFailed">oAuthFailed</a></li><li data-name="module:controllers/Login~oAuthSuccess"><a href="module-controllers_Login.html#~oAuthSuccess">oAuthSuccess</a></li><li data-name="module:controllers/Login~processLoginForm"><a href="module-controllers_Login.html#~processLoginForm">processLoginForm</a></li><li data-name="module:controllers/Login~show"><a href="module-controllers_Login.html#~show">show</a></li></ul></li><li class="item" data-name="module:controllers/Order"><span class="expand">+</span><a href="module-controllers_Order.html">controllers/Order</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Order~history"><a href="module-controllers_Order.html#~history">history</a></li><li data-name="module:controllers/Order~orders"><a href="module-controllers_Order.html#~orders">orders</a></li><li data-name="module:controllers/Order~track"><a href="module-controllers_Order.html#~track">track</a></li></ul></li><li class="item" data-name="module:controllers/Page"><span class="expand">+</span><a href="module-controllers_Page.html">controllers/Page</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Page~include"><a href="module-controllers_Page.html#~include">include</a></li><li data-name="module:controllers/Page~show"><a href="module-controllers_Page.html#~show">show</a></li></ul></li><li class="item" data-name="module:controllers/PaymentInstruments"><span class="expand">+</span><a href="module-controllers_PaymentInstruments.html">controllers/PaymentInstruments</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/PaymentInstruments~add"><a href="module-controllers_PaymentInstruments.html#~add">add</a></li><li data-name="module:controllers/PaymentInstruments~create"><a href="module-controllers_PaymentInstruments.html#~create">create</a></li><li data-name="module:controllers/PaymentInstruments~Delete"><a href="module-controllers_PaymentInstruments.html#~Delete">Delete</a></li><li data-name="module:controllers/PaymentInstruments~handlePaymentForm"><a href="module-controllers_PaymentInstruments.html#~handlePaymentForm">handlePaymentForm</a></li><li data-name="module:controllers/PaymentInstruments~list"><a href="module-controllers_PaymentInstruments.html#~list">list</a></li><li data-name="module:controllers/PaymentInstruments~save"><a href="module-controllers_PaymentInstruments.html#~save">save</a></li><li data-name="module:controllers/PaymentInstruments~verifyCreditCard"><a href="module-controllers_PaymentInstruments.html#~verifyCreditCard">verifyCreditCard</a></li></ul></li><li class="item" data-name="module:controllers/Product"><span class="expand">+</span><a href="module-controllers_Product.html">controllers/Product</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Product~detail"><a href="module-controllers_Product.html#~detail">detail</a></li><li data-name="module:controllers/Product~getAvailability"><a href="module-controllers_Product.html#~getAvailability">getAvailability</a></li><li data-name="module:controllers/Product~getBonusProducts"><a href="module-controllers_Product.html#~getBonusProducts">getBonusProducts</a></li><li data-name="module:controllers/Product~getSelectedProduct"><a href="module-controllers_Product.html#~getSelectedProduct">getSelectedProduct</a></li><li data-name="module:controllers/Product~getSetItem"><a href="module-controllers_Product.html#~getSetItem">getSetItem</a></li><li data-name="module:controllers/Product~hitTile"><a href="module-controllers_Product.html#~hitTile">hitTile</a></li><li data-name="module:controllers/Product~includeLastVisited"><a href="module-controllers_Product.html#~includeLastVisited">includeLastVisited</a></li><li data-name="module:controllers/Product~productNavigation"><a href="module-controllers_Product.html#~productNavigation">productNavigation</a></li><li data-name="module:controllers/Product~show"><a href="module-controllers_Product.html#~show">show</a></li><li data-name="module:controllers/Product~showInCategory"><a href="module-controllers_Product.html#~showInCategory">showInCategory</a></li><li data-name="module:controllers/Product~variation"><a href="module-controllers_Product.html#~variation">variation</a></li><li data-name="module:controllers/Product~variationPS"><a href="module-controllers_Product.html#~variationPS">variationPS</a></li></ul></li><li class="item" data-name="module:controllers/RateLimiter"><span class="expand">&nbsp;</span><a href="module-controllers_RateLimiter.html">controllers/RateLimiter</a></li><li class="item" data-name="module:controllers/RedirectURL"><span class="expand">+</span><a href="module-controllers_RedirectURL.html">controllers/RedirectURL</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/RedirectURL~hostName"><a href="module-controllers_RedirectURL.html#~hostName">hostName</a></li><li data-name="module:controllers/RedirectURL~start"><a href="module-controllers_RedirectURL.html#~start">start</a></li></ul></li><li class="item" data-name="module:controllers/ReportingEvent"><span class="expand">+</span><a href="module-controllers_ReportingEvent.html">controllers/ReportingEvent</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/ReportingEvent~start"><a href="module-controllers_ReportingEvent.html#~start">start</a></li></ul></li><li class="item" data-name="module:controllers/Resources"><span class="expand">+</span><a href="module-controllers_Resources.html">controllers/Resources</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Resources~loadTransient"><a href="module-controllers_Resources.html#~loadTransient">loadTransient</a></li></ul></li><li class="item" data-name="module:controllers/Search"><span class="expand">+</span><a href="module-controllers_Search.html">controllers/Search</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Search~getSuggestions"><a href="module-controllers_Search.html#~getSuggestions">getSuggestions</a></li><li data-name="module:controllers/Search~show"><a href="module-controllers_Search.html#~show">show</a></li><li data-name="module:controllers/Search~showContent"><a href="module-controllers_Search.html#~showContent">showContent</a></li><li data-name="module:controllers/Search~showProductGrid"><a href="module-controllers_Search.html#~showProductGrid">showProductGrid</a></li></ul></li><li class="item" data-name="module:controllers/SiteMap"><span class="expand">+</span><a href="module-controllers_SiteMap.html">controllers/SiteMap</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/SiteMap~google"><a href="module-controllers_SiteMap.html#~google">google</a></li><li data-name="module:controllers/SiteMap~start"><a href="module-controllers_SiteMap.html#~start">start</a></li></ul></li><li class="item" data-name="module:controllers/SourceCodeRedirect"><span class="expand">+</span><a href="module-controllers_SourceCodeRedirect.html">controllers/SourceCodeRedirect</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/SourceCodeRedirect~start"><a href="module-controllers_SourceCodeRedirect.html#~start">start</a></li></ul></li><li class="item" data-name="module:controllers/StoreInventory"><span class="expand">+</span><a href="module-controllers_StoreInventory.html">controllers/StoreInventory</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/StoreInventory~cartSetZipCodeCore"><a href="module-controllers_StoreInventory.html#~cartSetZipCodeCore">cartSetZipCodeCore</a></li><li data-name="module:controllers/StoreInventory~getPreferredStore"><a href="module-controllers_StoreInventory.html#~getPreferredStore">getPreferredStore</a></li><li data-name="module:controllers/StoreInventory~getProductLineItem"><a href="module-controllers_StoreInventory.html#~getProductLineItem">getProductLineItem</a></li><li data-name="module:controllers/StoreInventory~getStoreAvailabilityMap"><a href="module-controllers_StoreInventory.html#~getStoreAvailabilityMap">getStoreAvailabilityMap</a></li><li data-name="module:controllers/StoreInventory~getStoreAvailabilityMessage"><a href="module-controllers_StoreInventory.html#~getStoreAvailabilityMessage">getStoreAvailabilityMessage</a></li><li data-name="module:controllers/StoreInventory~getZipCode"><a href="module-controllers_StoreInventory.html#~getZipCode">getZipCode</a></li><li data-name="module:controllers/StoreInventory~inventory"><a href="module-controllers_StoreInventory.html#~inventory">inventory</a></li><li data-name="module:controllers/StoreInventory~lookupByZipCode"><a href="module-controllers_StoreInventory.html#~lookupByZipCode">lookupByZipCode</a></li><li data-name="module:controllers/StoreInventory~setPreferredStore"><a href="module-controllers_StoreInventory.html#~setPreferredStore">setPreferredStore</a></li><li data-name="module:controllers/StoreInventory~setStore"><a href="module-controllers_StoreInventory.html#~setStore">setStore</a></li><li data-name="module:controllers/StoreInventory~setStoreCore"><a href="module-controllers_StoreInventory.html#~setStoreCore">setStoreCore</a></li><li data-name="module:controllers/StoreInventory~setStoreInLineItem"><a href="module-controllers_StoreInventory.html#~setStoreInLineItem">setStoreInLineItem</a></li><li data-name="module:controllers/StoreInventory~setZipCode"><a href="module-controllers_StoreInventory.html#~setZipCode">setZipCode</a></li><li data-name="module:controllers/StoreInventory~setZipCodeCore"><a href="module-controllers_StoreInventory.html#~setZipCodeCore">setZipCodeCore</a></li><li data-name="module:controllers/StoreInventory~showAvailableStores"><a href="module-controllers_StoreInventory.html#~showAvailableStores">showAvailableStores</a></li><li data-name="module:controllers/StoreInventory~showSelectedStoreCore"><a href="module-controllers_StoreInventory.html#~showSelectedStoreCore">showSelectedStoreCore</a></li><li data-name="module:controllers/StoreInventory~showSetStore"><a href="module-controllers_StoreInventory.html#~showSetStore">showSetStore</a></li><li data-name="module:controllers/StoreInventory~showZipCode"><a href="module-controllers_StoreInventory.html#~showZipCode">showZipCode</a></li></ul></li><li class="item" data-name="module:controllers/Stores"><span class="expand">+</span><a href="module-controllers_Stores.html">controllers/Stores</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Stores~details"><a href="module-controllers_Stores.html#~details">details</a></li><li data-name="module:controllers/Stores~find"><a href="module-controllers_Stores.html#~find">find</a></li><li data-name="module:controllers/Stores~findStores"><a href="module-controllers_Stores.html#~findStores">findStores</a></li></ul></li><li class="item" data-name="module:controllers/TLS"><span class="expand">&nbsp;</span><a href="module-controllers_TLS.html">controllers/TLS</a></li><li class="item" data-name="module:controllers/Wishlist"><span class="expand">+</span><a href="module-controllers_Wishlist.html">controllers/Wishlist</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:controllers/Wishlist~add"><a href="module-controllers_Wishlist.html#~add">add</a></li><li data-name="module:controllers/Wishlist~addProduct"><a href="module-controllers_Wishlist.html#~addProduct">addProduct</a></li><li data-name="module:controllers/Wishlist~landingForm"><a href="module-controllers_Wishlist.html#~landingForm">landingForm</a></li><li data-name="module:controllers/Wishlist~replaceProductListItem"><a href="module-controllers_Wishlist.html#~replaceProductListItem">replaceProductListItem</a></li><li data-name="module:controllers/Wishlist~setShippingAddress"><a href="module-controllers_Wishlist.html#~setShippingAddress">setShippingAddress</a></li><li data-name="module:controllers/Wishlist~show"><a href="module-controllers_Wishlist.html#~show">show</a></li><li data-name="module:controllers/Wishlist~showOther"><a href="module-controllers_Wishlist.html#~showOther">showOther</a></li><li data-name="module:controllers/Wishlist~wishListForm"><a href="module-controllers_Wishlist.html#~wishListForm">wishListForm</a></li></ul></li><li class="item" data-name="module:guard"><span class="expand">+</span><a href="module-guard.html">guard</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:guard.httpsGet"><a href="module-guard.html#.httpsGet">httpsGet</a></li><li data-name="module:guard.httpsPost"><a href="module-guard.html#.httpsPost">httpsPost</a></li><li data-name="module:guard~ensure"><a href="module-guard.html#~ensure">ensure</a></li><li data-name="module:guard~expose"><a href="module-guard.html#~expose">expose</a></li><li data-name="module:guard~requireLogin"><a href="module-guard.html#~requireLogin">requireLogin</a></li><li data-name="module:guard~switchToHttps"><a href="module-guard.html#~switchToHttps">switchToHttps</a></li></ul></li><li class="item" data-name="module:meta"><span class="expand">&nbsp;</span><a href="module-meta.html">meta</a></li><li class="item" data-name="module:models/AbstractModel"><span class="expand">+</span><a href="module-models_AbstractModel.html">models/AbstractModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/AbstractModel~AbstractModel/__noSuchMethod__"><a href="module-models_AbstractModel.html#~AbstractModel/__noSuchMethod__">AbstractModel/__noSuchMethod__</a></li><li data-name="module:models/AbstractModel~AbstractModel/get"><a href="module-models_AbstractModel.html#~AbstractModel/get">AbstractModel/get</a></li><li data-name="module:models/AbstractModel~AbstractModel/getValue"><a href="module-models_AbstractModel.html#~AbstractModel/getValue">AbstractModel/getValue</a></li><li data-name="module:models/AbstractModel~AbstractModel/initProperties"><a href="module-models_AbstractModel.html#~AbstractModel/initProperties">AbstractModel/initProperties</a></li><li data-name="module:models/AbstractModel~AbstractModel/setValue."><a href="module-models_AbstractModel.html#~AbstractModel/setValue.">AbstractModel/setValue.</a></li></ul></li><li class="item" data-name="module:models/AddressModel"><span class="expand">+</span><a href="module-models_AddressModel.html">models/AddressModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/AddressModel~AddressModel/create"><a href="module-models_AddressModel.html#~AddressModel/create">AddressModel/create</a></li><li data-name="module:models/AddressModel~AddressModel/get"><a href="module-models_AddressModel.html#~AddressModel/get">AddressModel/get</a></li><li data-name="module:models/AddressModel~AddressModel/remove"><a href="module-models_AddressModel.html#~AddressModel/remove">AddressModel/remove</a></li><li data-name="module:models/AddressModel~AddressModel/remove"><a href="module-models_AddressModel.html#~AddressModel/remove">AddressModel/remove</a></li><li data-name="module:models/AddressModel~AddressModel/update"><a href="module-models_AddressModel.html#~AddressModel/update">AddressModel/update</a></li></ul></li><li class="item" data-name="module:models/CartModel"><span class="expand">+</span><a href="module-models_CartModel.html">models/CartModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/CartModel~CartModel/addAddressToAddressBook"><a href="module-models_CartModel.html#~CartModel/addAddressToAddressBook">CartModel/addAddressToAddressBook</a></li><li data-name="module:models/CartModel~CartModel/addBonusProduct"><a href="module-models_CartModel.html#~CartModel/addBonusProduct">CartModel/addBonusProduct</a></li><li data-name="module:models/CartModel~CartModel/addCoupon"><a href="module-models_CartModel.html#~CartModel/addCoupon">CartModel/addCoupon</a></li><li data-name="module:models/CartModel~CartModel/addProductItem"><a href="module-models_CartModel.html#~CartModel/addProductItem">CartModel/addProductItem</a></li><li data-name="module:models/CartModel~CartModel/addProductListItem"><a href="module-models_CartModel.html#~CartModel/addProductListItem">CartModel/addProductListItem</a></li><li data-name="module:models/CartModel~CartModel/calculate"><a href="module-models_CartModel.html#~CartModel/calculate">CartModel/calculate</a></li><li data-name="module:models/CartModel~CartModel/calculatePaymentTransactionTotal"><a href="module-models_CartModel.html#~CartModel/calculatePaymentTransactionTotal">CartModel/calculatePaymentTransactionTotal</a></li><li data-name="module:models/CartModel~CartModel/checkInStoreProducts"><a href="module-models_CartModel.html#~CartModel/checkInStoreProducts">CartModel/checkInStoreProducts</a></li><li data-name="module:models/CartModel~CartModel/consolidateInStoreShipments"><a href="module-models_CartModel.html#~CartModel/consolidateInStoreShipments">CartModel/consolidateInStoreShipments</a></li><li data-name="module:models/CartModel~CartModel/createGiftCertificatePaymentInstrument"><a href="module-models_CartModel.html#~CartModel/createGiftCertificatePaymentInstrument">CartModel/createGiftCertificatePaymentInstrument</a></li><li data-name="module:models/CartModel~CartModel/createOrder"><a href="module-models_CartModel.html#~CartModel/createOrder">CartModel/createOrder</a></li><li data-name="module:models/CartModel~CartModel/createShipmentShippingAddress"><a href="module-models_CartModel.html#~CartModel/createShipmentShippingAddress">CartModel/createShipmentShippingAddress</a></li><li data-name="module:models/CartModel~CartModel/determineUniqueShipmentID"><a href="module-models_CartModel.html#~CartModel/determineUniqueShipmentID">CartModel/determineUniqueShipmentID</a></li><li data-name="module:models/CartModel~CartModel/get"><a href="module-models_CartModel.html#~CartModel/get">CartModel/get</a></li><li data-name="module:models/CartModel~CartModel/getAddressBookAddresses"><a href="module-models_CartModel.html#~CartModel/getAddressBookAddresses">CartModel/getAddressBookAddresses</a></li><li data-name="module:models/CartModel~CartModel/getApplicableShippingMethods"><a href="module-models_CartModel.html#~CartModel/getApplicableShippingMethods">CartModel/getApplicableShippingMethods</a></li><li data-name="module:models/CartModel~CartModel/getBonusDiscountLineItemByUUID"><a href="module-models_CartModel.html#~CartModel/getBonusDiscountLineItemByUUID">CartModel/getBonusDiscountLineItemByUUID</a></li><li data-name="module:models/CartModel~CartModel/getBundledProductLineItemByPID"><a href="module-models_CartModel.html#~CartModel/getBundledProductLineItemByPID">CartModel/getBundledProductLineItemByPID</a></li><li data-name="module:models/CartModel~CartModel/getGiftCertIdList"><a href="module-models_CartModel.html#~CartModel/getGiftCertIdList">CartModel/getGiftCertIdList</a></li><li data-name="module:models/CartModel~CartModel/getNewBonusDiscountLineItems"><a href="module-models_CartModel.html#~CartModel/getNewBonusDiscountLineItems">CartModel/getNewBonusDiscountLineItems</a></li><li data-name="module:models/CartModel~CartModel/getNonGiftCertificateAmount"><a href="module-models_CartModel.html#~CartModel/getNonGiftCertificateAmount">CartModel/getNonGiftCertificateAmount</a></li><li data-name="module:models/CartModel~CartModel/getPhysicalShipments"><a href="module-models_CartModel.html#~CartModel/getPhysicalShipments">CartModel/getPhysicalShipments</a></li><li data-name="module:models/CartModel~CartModel/getProductLineItemByUUID"><a href="module-models_CartModel.html#~CartModel/getProductLineItemByUUID">CartModel/getProductLineItemByUUID</a></li><li data-name="module:models/CartModel~CartModel/goc"><a href="module-models_CartModel.html#~CartModel/goc">CartModel/goc</a></li><li data-name="module:models/CartModel~CartModel/initAddressBook"><a href="module-models_CartModel.html#~CartModel/initAddressBook">CartModel/initAddressBook</a></li><li data-name="module:models/CartModel~CartModel/preCalculateShipping"><a href="module-models_CartModel.html#~CartModel/preCalculateShipping">CartModel/preCalculateShipping</a></li><li data-name="module:models/CartModel~CartModel/removeBonusDiscountLineItemProducts"><a href="module-models_CartModel.html#~CartModel/removeBonusDiscountLineItemProducts">CartModel/removeBonusDiscountLineItemProducts</a></li><li data-name="module:models/CartModel~CartModel/removeEmptyShipments"><a href="module-models_CartModel.html#~CartModel/removeEmptyShipments">CartModel/removeEmptyShipments</a></li><li data-name="module:models/CartModel~CartModel/removeExistingPaymentInstruments"><a href="module-models_CartModel.html#~CartModel/removeExistingPaymentInstruments">CartModel/removeExistingPaymentInstruments</a></li><li data-name="module:models/CartModel~CartModel/removeExistingPaymentInstruments"><a href="module-models_CartModel.html#~CartModel/removeExistingPaymentInstruments">CartModel/removeExistingPaymentInstruments</a></li><li data-name="module:models/CartModel~CartModel/removeGiftCertificatePaymentInstrument"><a href="module-models_CartModel.html#~CartModel/removeGiftCertificatePaymentInstrument">CartModel/removeGiftCertificatePaymentInstrument</a></li><li data-name="module:models/CartModel~CartModel/removePaymentInstruments"><a href="module-models_CartModel.html#~CartModel/removePaymentInstruments">CartModel/removePaymentInstruments</a></li><li data-name="module:models/CartModel~CartModel/separateQuantities"><a href="module-models_CartModel.html#~CartModel/separateQuantities">CartModel/separateQuantities</a></li><li data-name="module:models/CartModel~CartModel/updateAddressBookAddress"><a href="module-models_CartModel.html#~CartModel/updateAddressBookAddress">CartModel/updateAddressBookAddress</a></li><li data-name="module:models/CartModel~CartModel/updateGiftCertificateShipments"><a href="module-models_CartModel.html#~CartModel/updateGiftCertificateShipments">CartModel/updateGiftCertificateShipments</a></li><li data-name="module:models/CartModel~CartModel/updateLineItem"><a href="module-models_CartModel.html#~CartModel/updateLineItem">CartModel/updateLineItem</a></li><li data-name="module:models/CartModel~CartModel/updateShipmentShippingMethod"><a href="module-models_CartModel.html#~CartModel/updateShipmentShippingMethod">CartModel/updateShipmentShippingMethod</a></li><li data-name="module:models/CartModel~CartModel/validateForCheckout"><a href="module-models_CartModel.html#~CartModel/validateForCheckout">CartModel/validateForCheckout</a></li><li data-name="module:models/CartModel~CartModel/validatePaymentInstruments"><a href="module-models_CartModel.html#~CartModel/validatePaymentInstruments">CartModel/validatePaymentInstruments</a></li></ul></li><li class="item" data-name="module:models/CategoryModel"><span class="expand">+</span><a href="module-models_CategoryModel.html">models/CategoryModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/CategoryModel~CategoryModel/get"><a href="module-models_CategoryModel.html#~CategoryModel/get">CategoryModel/get</a></li><li data-name="module:models/CategoryModel~CategoryModel/getMenuCategories"><a href="module-models_CategoryModel.html#~CategoryModel/getMenuCategories">CategoryModel/getMenuCategories</a></li><li data-name="module:models/CategoryModel~CategoryModel/getTopLevelCategories"><a href="module-models_CategoryModel.html#~CategoryModel/getTopLevelCategories">CategoryModel/getTopLevelCategories</a></li><li data-name="module:models/CategoryModel~CategoryModel/getTopLevelCategory"><a href="module-models_CategoryModel.html#~CategoryModel/getTopLevelCategory">CategoryModel/getTopLevelCategory</a></li><li data-name="module:models/CategoryModel~CategoryModel/getUrl"><a href="module-models_CategoryModel.html#~CategoryModel/getUrl">CategoryModel/getUrl</a></li></ul></li><li class="item" data-name="module:models/CompareModel"><span class="expand">+</span><a href="module-models_CompareModel.html">models/CompareModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/CompareModel.get"><a href="module-models_CompareModel.html#.get">get</a></li><li data-name="module:models/CompareModel~CompareList/add"><a href="module-models_CompareModel.html#~CompareList/add">CompareList/add</a></li><li data-name="module:models/CompareModel~CompareList/copyParentCategory"><a href="module-models_CompareModel.html#~CompareList/copyParentCategory">CompareList/copyParentCategory</a></li><li data-name="module:models/CompareModel~CompareList/findAttributeGroups"><a href="module-models_CompareModel.html#~CompareList/findAttributeGroups">CompareList/findAttributeGroups</a></li><li data-name="module:models/CompareModel~CompareList/findDeepestCommonCategory"><a href="module-models_CompareModel.html#~CompareList/findDeepestCommonCategory">CompareList/findDeepestCommonCategory</a></li><li data-name="module:models/CompareModel~CompareList/fromJSON"><a href="module-models_CompareModel.html#~CompareList/fromJSON">CompareList/fromJSON</a></li><li data-name="module:models/CompareModel~CompareList/getAttributeGroups"><a href="module-models_CompareModel.html#~CompareList/getAttributeGroups">CompareList/getAttributeGroups</a></li><li data-name="module:models/CompareModel~CompareList/getCategories"><a href="module-models_CompareModel.html#~CompareList/getCategories">CompareList/getCategories</a></li><li data-name="module:models/CompareModel~CompareList/getCategory"><a href="module-models_CompareModel.html#~CompareList/getCategory">CompareList/getCategory</a></li><li data-name="module:models/CompareModel~CompareList/getProducts"><a href="module-models_CompareModel.html#~CompareList/getProducts">CompareList/getProducts</a></li><li data-name="module:models/CompareModel~CompareList/productAssignedToCategory"><a href="module-models_CompareModel.html#~CompareList/productAssignedToCategory">CompareList/productAssignedToCategory</a></li><li data-name="module:models/CompareModel~CompareList/remove"><a href="module-models_CompareModel.html#~CompareList/remove">CompareList/remove</a></li><li data-name="module:models/CompareModel~CompareList/setCategory"><a href="module-models_CompareModel.html#~CompareList/setCategory">CompareList/setCategory</a></li><li data-name="module:models/CompareModel~CompareList/store"><a href="module-models_CompareModel.html#~CompareList/store">CompareList/store</a></li></ul></li><li class="item" data-name="module:models/ContentModel"><span class="expand">+</span><a href="module-models_ContentModel.html">models/ContentModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/ContentModel~ContentModel/get"><a href="module-models_ContentModel.html#~ContentModel/get">ContentModel/get</a></li><li data-name="module:models/ContentModel~ContentModel/getDefaultFolder"><a href="module-models_ContentModel.html#~ContentModel/getDefaultFolder">ContentModel/getDefaultFolder</a></li><li data-name="module:models/ContentModel~ContentModel/getFolderPath"><a href="module-models_ContentModel.html#~ContentModel/getFolderPath">ContentModel/getFolderPath</a></li><li data-name="module:models/ContentModel~ContentModel/getLink"><a href="module-models_ContentModel.html#~ContentModel/getLink">ContentModel/getLink</a></li><li data-name="module:models/ContentModel~ContentModel/getMarkup"><a href="module-models_ContentModel.html#~ContentModel/getMarkup">ContentModel/getMarkup</a></li><li data-name="module:models/ContentModel~ContentModel/isInFolder"><a href="module-models_ContentModel.html#~ContentModel/isInFolder">ContentModel/isInFolder</a></li></ul></li><li class="item" data-name="module:models/EmailModel"><span class="expand">+</span><a href="module-models_EmailModel.html">models/EmailModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/EmailModel~EmailModel/get"><a href="module-models_EmailModel.html#~EmailModel/get">EmailModel/get</a></li><li data-name="module:models/EmailModel~EmailModel/send"><a href="module-models_EmailModel.html#~EmailModel/send">EmailModel/send</a></li></ul></li><li class="item" data-name="module:models/FormModel"><span class="expand">+</span><a href="module-models_FormModel.html">models/FormModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/FormModel~FormModel/clear"><a href="module-models_FormModel.html#~FormModel/clear">FormModel/clear</a></li><li data-name="module:models/FormModel~FormModel/copyFrom"><a href="module-models_FormModel.html#~FormModel/copyFrom">FormModel/copyFrom</a></li><li data-name="module:models/FormModel~FormModel/copyTo"><a href="module-models_FormModel.html#~FormModel/copyTo">FormModel/copyTo</a></li><li data-name="module:models/FormModel~FormModel/get"><a href="module-models_FormModel.html#~FormModel/get">FormModel/get</a></li><li data-name="module:models/FormModel~FormModel/get"><a href="module-models_FormModel.html#~FormModel/get">FormModel/get</a></li><li data-name="module:models/FormModel~FormModel/getBinding"><a href="module-models_FormModel.html#~FormModel/getBinding">FormModel/getBinding</a></li><li data-name="module:models/FormModel~FormModel/getValue"><a href="module-models_FormModel.html#~FormModel/getValue">FormModel/getValue</a></li><li data-name="module:models/FormModel~FormModel/handleAction"><a href="module-models_FormModel.html#~FormModel/handleAction">FormModel/handleAction</a></li><li data-name="module:models/FormModel~FormModel/invalidate"><a href="module-models_FormModel.html#~FormModel/invalidate">FormModel/invalidate</a></li><li data-name="module:models/FormModel~FormModel/setValue"><a href="module-models_FormModel.html#~FormModel/setValue">FormModel/setValue</a></li><li data-name="module:models/FormModel~FormModel/value"><a href="module-models_FormModel.html#~FormModel/value">FormModel/value</a></li></ul></li><li class="item" data-name="module:models/GiftCertificateModel"><span class="expand">+</span><a href="module-models_GiftCertificateModel.html">models/GiftCertificateModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/GiftCertificateModel~createGiftCertificateFromLineItem"><a href="module-models_GiftCertificateModel.html#~createGiftCertificateFromLineItem">createGiftCertificateFromLineItem</a></li><li data-name="module:models/GiftCertificateModel~sendGiftCertificateEmail"><a href="module-models_GiftCertificateModel.html#~sendGiftCertificateEmail">sendGiftCertificateEmail</a></li></ul></li><li class="item" data-name="module:models/OrderModel"><span class="expand">+</span><a href="module-models_OrderModel.html">models/OrderModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/OrderModel~OrderModel/get"><a href="module-models_OrderModel.html#~OrderModel/get">OrderModel/get</a></li><li data-name="module:models/OrderModel~placeOrder"><a href="module-models_OrderModel.html#~placeOrder">placeOrder</a></li></ul></li><li class="item" data-name="module:models/PaymentProcessorModel"><span class="expand">+</span><a href="module-models_PaymentProcessorModel.html">models/PaymentProcessorModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/PaymentProcessorModel~PaymentProcessorModel/authorize"><a href="module-models_PaymentProcessorModel.html#~PaymentProcessorModel/authorize">PaymentProcessorModel/authorize</a></li><li data-name="module:models/PaymentProcessorModel~PaymentProcessorModel/handle"><a href="module-models_PaymentProcessorModel.html#~PaymentProcessorModel/handle">PaymentProcessorModel/handle</a></li></ul></li><li class="item" data-name="module:models/ProductListModel"><span class="expand">+</span><a href="module-models_ProductListModel.html">models/ProductListModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/ProductListModel~filterOutPrivateLists"><a href="module-models_ProductListModel.html#~filterOutPrivateLists">filterOutPrivateLists</a></li><li data-name="module:models/ProductListModel~ProductListModel/addProduct"><a href="module-models_ProductListModel.html#~ProductListModel/addProduct">ProductListModel/addProduct</a></li><li data-name="module:models/ProductListModel~ProductListModel/remove"><a href="module-models_ProductListModel.html#~ProductListModel/remove">ProductListModel/remove</a></li><li data-name="module:models/ProductListModel~ProductListModel/setPublic"><a href="module-models_ProductListModel.html#~ProductListModel/setPublic">ProductListModel/setPublic</a></li></ul></li><li class="item" data-name="module:models/ProductModel"><span class="expand">+</span><a href="module-models_ProductModel.html">models/ProductModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/ProductModel~isAttrSelectable"><a href="module-models_ProductModel.html#~isAttrSelectable">isAttrSelectable</a></li><li data-name="module:models/ProductModel~ProductModel/get"><a href="module-models_ProductModel.html#~ProductModel/get">ProductModel/get</a></li><li data-name="module:models/ProductModel~ProductModel/getAvailability"><a href="module-models_ProductModel.html#~ProductModel/getAvailability">ProductModel/getAvailability</a></li><li data-name="module:models/ProductModel~ProductModel/getOnlineProductSetProducts"><a href="module-models_ProductModel.html#~ProductModel/getOnlineProductSetProducts">ProductModel/getOnlineProductSetProducts</a></li><li data-name="module:models/ProductModel~ProductModel/isVisible"><a href="module-models_ProductModel.html#~ProductModel/isVisible">ProductModel/isVisible</a></li><li data-name="module:models/ProductModel~ProductModel/updateOptionSelection"><a href="module-models_ProductModel.html#~ProductModel/updateOptionSelection">ProductModel/updateOptionSelection</a></li><li data-name="module:models/ProductModel~ProductModel/updateVariationSelection"><a href="module-models_ProductModel.html#~ProductModel/updateVariationSelection">ProductModel/updateVariationSelection</a></li></ul></li><li class="item" data-name="module:models/ProductVariationModel"><span class="expand">+</span><a href="module-models_ProductVariationModel.html">models/ProductVariationModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/ProductVariationModel~ProductVariationModel/getVariationAttributeValue"><a href="module-models_ProductVariationModel.html#~ProductVariationModel/getVariationAttributeValue">ProductVariationModel/getVariationAttributeValue</a></li><li data-name="module:models/ProductVariationModel~ProductVariationModel/init"><a href="module-models_ProductVariationModel.html#~ProductVariationModel/init">ProductVariationModel/init</a></li></ul></li><li class="item" data-name="module:models/ProfileModel"><span class="expand">+</span><a href="module-models_ProfileModel.html">models/ProfileModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/ProfileModel~ProfileModel/addAddressToAddressBook"><a href="module-models_ProfileModel.html#~ProfileModel/addAddressToAddressBook">ProfileModel/addAddressToAddressBook</a></li><li data-name="module:models/ProfileModel~ProfileModel/determineUniqueAddressID"><a href="module-models_ProfileModel.html#~ProfileModel/determineUniqueAddressID">ProfileModel/determineUniqueAddressID</a></li><li data-name="module:models/ProfileModel~ProfileModel/get"><a href="module-models_ProfileModel.html#~ProfileModel/get">ProfileModel/get</a></li><li data-name="module:models/ProfileModel~ProfileModel/getDefaultBillingAddress"><a href="module-models_ProfileModel.html#~ProfileModel/getDefaultBillingAddress">ProfileModel/getDefaultBillingAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/getDefaultShippingAddress"><a href="module-models_ProfileModel.html#~ProfileModel/getDefaultShippingAddress">ProfileModel/getDefaultShippingAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/getPreferredAddress"><a href="module-models_ProfileModel.html#~ProfileModel/getPreferredAddress">ProfileModel/getPreferredAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/isDefaultBillingAddress"><a href="module-models_ProfileModel.html#~ProfileModel/isDefaultBillingAddress">ProfileModel/isDefaultBillingAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/isDefaultShippingAddress"><a href="module-models_ProfileModel.html#~ProfileModel/isDefaultShippingAddress">ProfileModel/isDefaultShippingAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/setDefaultBillingAddress"><a href="module-models_ProfileModel.html#~ProfileModel/setDefaultBillingAddress">ProfileModel/setDefaultBillingAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/setDefaultShippingAddress"><a href="module-models_ProfileModel.html#~ProfileModel/setDefaultShippingAddress">ProfileModel/setDefaultShippingAddress</a></li><li data-name="module:models/ProfileModel~ProfileModel/validateWalletPaymentInstruments"><a href="module-models_ProfileModel.html#~ProfileModel/validateWalletPaymentInstruments">ProfileModel/validateWalletPaymentInstruments</a></li><li data-name="module:models/ProfileModel~ProfileModel/validateWalletPaymentInstruments"><a href="module-models_ProfileModel.html#~ProfileModel/validateWalletPaymentInstruments">ProfileModel/validateWalletPaymentInstruments</a></li></ul></li><li class="item" data-name="module:models/QuantityLineItemModel"><span class="expand">&nbsp;</span><a href="module-models_QuantityLineItemModel.html">models/QuantityLineItemModel</a></li><li class="item" data-name="module:models/RecentlyViewedItemsModel"><span class="expand">&nbsp;</span><a href="module-models_RecentlyViewedItemsModel.html">models/RecentlyViewedItemsModel</a></li><li class="item" data-name="module:models/SearchModel"><span class="expand">&nbsp;</span><a href="module-models_SearchModel.html">models/SearchModel</a></li><li class="item" data-name="module:models/TransientAddressModel"><span class="expand">+</span><a href="module-models_TransientAddressModel.html">models/TransientAddressModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/TransientAddressModel~addressExists"><a href="module-models_TransientAddressModel.html#~addressExists">addressExists</a></li><li data-name="module:models/TransientAddressModel~copyFrom"><a href="module-models_TransientAddressModel.html#~copyFrom">copyFrom</a></li><li data-name="module:models/TransientAddressModel~copyTo"><a href="module-models_TransientAddressModel.html#~copyTo">copyTo</a></li><li data-name="module:models/TransientAddressModel~equals"><a href="module-models_TransientAddressModel.html#~equals">equals</a></li><li data-name="module:models/TransientAddressModel~storeAddressTo"><a href="module-models_TransientAddressModel.html#~storeAddressTo">storeAddressTo</a></li></ul></li><li class="item" data-name="module:object"><span class="expand">+</span><a href="module-object.html">object</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:object.extend"><a href="module-object.html#.extend">extend</a></li><li data-name="module:object.fromHashMap"><a href="module-object.html#.fromHashMap">fromHashMap</a></li><li data-name="module:object.keys"><a href="module-object.html#.keys">keys</a></li><li data-name="module:object.resolve"><a href="module-object.html#.resolve">resolve</a></li><li data-name="module:object.toHashMap"><a href="module-object.html#.toHashMap">toHashMap</a></li><li data-name="module:object.values"><a href="module-object.html#.values">values</a></li></ul></li><li class="item" data-name="module:request/OnRequest"><span class="expand">+</span><a href="module-request_OnRequest.html">request/OnRequest</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:request/OnRequest.onRequest"><a href="module-request_OnRequest.html#.onRequest">onRequest</a></li></ul></li><li class="item" data-name="module:request/OnSession"><span class="expand">+</span><a href="module-request_OnSession.html">request/OnSession</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:request/OnSession.onSession"><a href="module-request_OnSession.html#.onSession">onSession</a></li><li data-name="module:request/OnSession~getDeviceType"><a href="module-request_OnSession.html#~getDeviceType">getDeviceType</a></li></ul></li><li class="item" data-name="module:util/Browsing"><span class="expand">+</span><a href="module-util_Browsing.html">util/Browsing</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:util/Browsing.lastCatalogURL"><a href="module-util_Browsing.html#.lastCatalogURL">lastCatalogURL</a></li><li data-name="module:util/Browsing.lastUrl"><a href="module-util_Browsing.html#.lastUrl">lastUrl</a></li></ul></li><li class="item" data-name="module:util/Class"><span class="expand">&nbsp;</span><a href="module-util_Class.html">util/Class</a></li><li class="item" data-name="module:util/Response"><span class="expand">+</span><a href="module-util_Response.html">util/Response</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:util/Response.renderJSON"><a href="module-util_Response.html#.renderJSON">renderJSON</a></li></ul></li><li class="item" data-name="module:view"><span class="expand">+</span><a href="module-view.html">view</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:view.decorate"><a href="module-view.html#.decorate">decorate</a></li></ul></li><li class="item" data-name="module:views/CartView"><span class="expand">+</span><a href="module-views_CartView.html">views/CartView</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/CartView~prepareView"><a href="module-views_CartView.html#~prepareView">prepareView</a></li></ul></li><li class="item" data-name="module:views/CustomerServiceView"><span class="expand">+</span><a href="module-views_CustomerServiceView.html">views/CustomerServiceView</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/CustomerServiceView~getCustomerServiceLinks"><a href="module-views_CustomerServiceView.html#~getCustomerServiceLinks">getCustomerServiceLinks</a></li></ul></li><li class="item" data-name="module:views/LoginView"><span class="expand">&nbsp;</span><a href="module-views_LoginView.html">views/LoginView</a></li><li class="item" data-name="module:views/ProductView"><span class="expand">&nbsp;</span><a href="module-views_ProductView.html">views/ProductView</a></li><li class="item" data-name="module:views/StoreLocatorView"><span class="expand">&nbsp;</span><a href="module-views_StoreLocatorView.html">views/StoreLocatorView</a></li><li class="item" data-name="module:views/View"><span class="expand">+</span><a href="module-views_View.html">views/View</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/View~View/render"><a href="module-views_View.html#~View/render">View/render</a></li></ul></li></ul><h3>Classes</h3><ul><li class="item" data-name="CustomerServiceView~CustomerServiceView"><span class="expand">+</span><a href="CustomerServiceView-CustomerServiceView.html">CustomerServiceView</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="CustomerServiceView~CustomerServiceView#extend"><a href="CustomerServiceView-CustomerServiceView.html#extend">extend</a></li></ul></li><li class="item" data-name="module:meta~Meta"><span class="expand">+</span><a href="module-meta-Meta.html">Meta</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:meta~Meta#addResource"><a href="module-meta-Meta.html#addResource">addResource</a></li><li data-name="module:meta~Meta#getBreadcrumbs"><a href="module-meta-Meta.html#getBreadcrumbs">getBreadcrumbs</a></li><li data-name="module:meta~Meta#renderClientData"><a href="module-meta-Meta.html#renderClientData">renderClientData</a></li><li data-name="module:meta~Meta#update"><a href="module-meta-Meta.html#update">update</a></li><li data-name="module:meta~Meta#updatePageMetaData"><a href="module-meta-Meta.html#updatePageMetaData">updatePageMetaData</a></li></ul></li><li class="item" data-name="module:models/AbstractModel~AbstractModel"><span class="expand">+</span><a href="module-models_AbstractModel-AbstractModel.html">AbstractModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/AbstractModel~AbstractModel#extend"><a href="module-models_AbstractModel-AbstractModel.html#extend">extend</a></li></ul></li><li class="item" data-name="module:models/AddressModel~AddressModel"><span class="expand">&nbsp;</span><a href="module-models_AddressModel-AddressModel.html">AddressModel</a></li><li class="item" data-name="module:models/CartModel~CartModel"><span class="expand">&nbsp;</span><a href="module-models_CartModel-CartModel.html">CartModel</a></li><li class="item" data-name="module:models/CategoryModel~CategoryModel"><span class="expand">&nbsp;</span><a href="module-models_CategoryModel-CategoryModel.html">CategoryModel</a></li><li class="item" data-name="module:models/CompareModel~CompareList"><span class="expand">+</span><a href="module-models_CompareModel-CompareList.html">CompareList</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/CompareModel~CompareList~toJSON"><a href="module-models_CompareModel-CompareList.html#~toJSON">toJSON</a></li></ul></li><li class="item" data-name="module:models/ContentModel~ContentModel"><span class="expand">&nbsp;</span><a href="module-models_ContentModel-ContentModel.html">ContentModel</a></li><li class="item" data-name="module:models/CustomerModel~CustomerModel"><span class="expand">&nbsp;</span><a href="module-models_CustomerModel-CustomerModel.html">CustomerModel</a></li><li class="item" data-name="module:models/EmailModel~EmailModel"><span class="expand">+</span><a href="module-models_EmailModel-EmailModel.html">EmailModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/EmailModel~EmailModel.sendMail"><a href="module-models_EmailModel-EmailModel.html#.sendMail">sendMail</a></li></ul></li><li class="item" data-name="module:models/FormModel~FormModel"><span class="expand">&nbsp;</span><a href="module-models_FormModel-FormModel.html">FormModel</a></li><li class="item" data-name="module:models/OrderModel~OrderModel"><span class="expand">+</span><a href="module-models_OrderModel-OrderModel.html">OrderModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/OrderModel~OrderModel.submit"><a href="module-models_OrderModel-OrderModel.html#.submit">submit</a></li></ul></li><li class="item" data-name="module:models/PaymentProcessorModel~PaymentProcessorModel"><span class="expand">&nbsp;</span><a href="module-models_PaymentProcessorModel-PaymentProcessorModel.html">PaymentProcessorModel</a></li><li class="item" data-name="module:models/ProductListModel~ProductListModel"><span class="expand">+</span><a href="module-models_ProductListModel-ProductListModel.html">ProductListModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/ProductListModel~ProductListModel.replaceProductListItem"><a href="module-models_ProductListModel-ProductListModel.html#.replaceProductListItem">replaceProductListItem</a></li><li data-name="module:models/ProductListModel~ProductListModel.search"><a href="module-models_ProductListModel-ProductListModel.html#.search">search</a></li><li data-name="module:models/ProductListModel~ProductListModel#isProductInProductList"><a href="module-models_ProductListModel-ProductListModel.html#isProductInProductList">isProductInProductList</a></li><li data-name="module:models/ProductListModel~ProductListModel#remove"><a href="module-models_ProductListModel-ProductListModel.html#remove">remove</a></li><li data-name="module:models/ProductListModel~ProductListModel#updateItem"><a href="module-models_ProductListModel-ProductListModel.html#updateItem">updateItem</a></li></ul></li><li class="item" data-name="module:models/ProductModel~ProductModel"><span class="expand">&nbsp;</span><a href="module-models_ProductModel-ProductModel.html">ProductModel</a></li><li class="item" data-name="module:models/ProductVariationModel~ProductVariationModel"><span class="expand">&nbsp;</span><a href="module-models_ProductVariationModel-ProductVariationModel.html">ProductVariationModel</a></li><li class="item" data-name="module:models/ProfileModel~ProfileModel"><span class="expand">&nbsp;</span><a href="module-models_ProfileModel-ProfileModel.html">ProfileModel</a></li><li class="item" data-name="module:models/QuantityLineItemModel~QuantityLineItemModel"><span class="expand">&nbsp;</span><a href="module-models_QuantityLineItemModel-QuantityLineItemModel.html">QuantityLineItemModel</a></li><li class="item" data-name="module:models/RecentlyViewedItemsModel~RecentlyViewedItemsModel"><span class="expand">+</span><a href="module-models_RecentlyViewedItemsModel-RecentlyViewedItemsModel.html">RecentlyViewedItemsModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/RecentlyViewedItemsModel~RecentlyViewedItemsModel.getRecentlyViewedProducts"><a href="module-models_RecentlyViewedItemsModel-RecentlyViewedItemsModel.html#.getRecentlyViewedProducts">getRecentlyViewedProducts</a></li></ul></li><li class="item" data-name="module:models/SearchModel~SearchModel"><span class="expand">+</span><a href="module-models_SearchModel-SearchModel.html">SearchModel</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:models/SearchModel~SearchModel.initializeContentSearchModel"><a href="module-models_SearchModel-SearchModel.html#.initializeContentSearchModel">initializeContentSearchModel</a></li><li data-name="module:models/SearchModel~SearchModel.initializeProductSearchModel"><a href="module-models_SearchModel-SearchModel.html#.initializeProductSearchModel">initializeProductSearchModel</a></li><li data-name="module:models/SearchModel~SearchModel.initializeSearchModel"><a href="module-models_SearchModel-SearchModel.html#.initializeSearchModel">initializeSearchModel</a></li></ul></li><li class="item" data-name="module:models/TransientAddressModel~TransientAddressModel"><span class="expand">&nbsp;</span><a href="module-models_TransientAddressModel-TransientAddressModel.html">TransientAddressModel</a></li><li class="item" data-name="module:util/Class~Class"><span class="expand">+</span><a href="module-util_Class-Class.html">Class</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:util/Class~Class#extend"><a href="module-util_Class-Class.html#extend">extend</a></li></ul></li><li class="item" data-name="module:views/CartView~CartView"><span class="expand">+</span><a href="module-views_CartView-CartView.html">CartView</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/CartView~CartView#extend"><a href="module-views_CartView-CartView.html#extend">extend</a></li></ul></li><li class="item" data-name="module:views/LoginView~LoginView"><span class="expand">&nbsp;</span><a href="module-views_LoginView-LoginView.html">LoginView</a></li><li class="item" data-name="module:views/ProductView~ProductView"><span class="expand">&nbsp;</span><a href="module-views_ProductView-ProductView.html">ProductView</a></li><li class="item" data-name="module:views/StoreLocatorView~StoreLocatorView"><span class="expand">+</span><a href="module-views_StoreLocatorView-StoreLocatorView.html">StoreLocatorView</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/StoreLocatorView~StoreLocatorView#extend"><a href="module-views_StoreLocatorView-StoreLocatorView.html#extend">extend</a></li></ul></li><li class="item" data-name="module:views/View~View"><span class="expand">+</span><a href="module-views_View-View.html">View</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/View~View#extend"><a href="module-views_View-View.html#extend">extend</a></li></ul></li><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:views/View~View#extend"><a href="module-views_View-View.html#extend">extend</a></li></ul></li></ul><h3>Namespaces</h3><ul><li class="item" data-name="module:guard~Filters"><span class="expand">+</span><a href="module-guard-Filters.html">Filters</a><ul class="methods itemMembers"><span class="subtitle">Methods</span><li data-name="module:guard~Filters.get"><a href="module-guard-Filters.html#.get">get</a></li><li data-name="module:guard~Filters.http"><a href="module-guard-Filters.html#.http">http</a></li><li data-name="module:guard~Filters.https"><a href="module-guard-Filters.html#.https">https</a></li><li data-name="module:guard~Filters.include"><a href="module-guard-Filters.html#.include">include</a></li><li data-name="module:guard~Filters.loggedIn"><a href="module-guard-Filters.html#.loggedIn">loggedIn</a></li><li data-name="module:guard~Filters.post"><a href="module-guard-Filters.html#.post">post</a></li></ul></li></ul><h3>Tutorials</h3><ul><li class="item" data-name="Controllers"><span class="expand">&nbsp;</span><a href="tutorial-Controllers.html">The Controller concept</a></li><li class="item" data-name="Emails"><span class="expand">&nbsp;</span><a href="tutorial-Emails.html">Sending Emails</a></li><li class="item" data-name="Extensions"><span class="expand">&nbsp;</span><a href="tutorial-Extensions.html">Extension Points</a></li><li class="item" data-name="Models"><span class="expand">&nbsp;</span><a href="tutorial-Models.html">The Model concept</a></li><li class="item" data-name="Views"><span class="expand">&nbsp;</span><a href="tutorial-Views.html">The View concept</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Authorize">Authorize</a></li><li><a href="global.html#fs">fs</a></li><li><a href="global.html#Handle">Handle</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Demandware, Inc.<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+</footer>
+
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/main.js"></script>
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

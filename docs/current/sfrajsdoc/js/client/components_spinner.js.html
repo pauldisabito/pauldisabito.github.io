@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFRA Server-side Javascript - Source: components/spinner.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-menu" viewBox="0 0 1024 1024">
+    <title>menu</title>
+    <path class="path1" d="M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"></path>
+</symbol>
+</defs>
+</svg>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger menu-icon" />
+<label for="nav-trigger"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></label>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SFRA</a> /
+        <a href="index.html">Client-side JS</a> /
+        Source: components/spinner.js
+    </h2>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+/**
+ * Show a spinner inside a given element
+ * @param {element} $target - Element to block by the veil and spinner.
+ *                            Pass body to block the whole page.
+ */
+function addSpinner($target) {
+    var $veil = $('&lt;div class="veil">&lt;div class="underlay">&lt;/div>&lt;/div>');
+    $veil.append('&lt;div class="spinner">&lt;div class="dot1">&lt;/div>&lt;div class="dot2">&lt;/div>&lt;/div>');
+    if ($target.get(0).tagName === 'IMG') {
+        $target.after($veil);
+        $veil.css({ width: $target.width(), height: $target.height() });
+        if ($target.parent().css('position') === 'static') {
+            $target.parent().css('position', 'relative');
+        }
+    } else {
+        $target.append($veil);
+        if ($target.css('position') === 'static') {
+            $target.parent().css('position', 'relative');
+            $target.parent().addClass('veiled');
+        }
+        if ($target.get(0).tagName === 'BODY') {
+            $veil.find('.spinner').css('position', 'fixed');
+        }
+    }
+    $veil.click(function (e) {
+        e.stopPropagation();
+    });
+}
+
+/**
+ * Remove existing spinner
+ * @param  {element} $veil - jQuery pointer to the veil element
+ */
+function removeSpinner($veil) {
+    if ($veil.parent().hasClass('veiled')) {
+        $veil.parent().css('position', '');
+        $veil.parent().removeClass('veiled');
+    }
+    $veil.off('click');
+    $veil.remove();
+}
+
+// element level spinner:
+$.fn.spinner = function () {
+    var $element = $(this);
+    var Fn = function () {
+        this.start = function () {
+            if ($element.length) {
+                addSpinner($element);
+            }
+        };
+        this.stop = function () {
+            if ($element.length) {
+                var $veil = $('.veil');
+                removeSpinner($veil);
+            }
+        };
+    };
+    return new Fn();
+};
+
+// page-level spinner:
+$.spinner = function () {
+    var Fn = function () {
+        this.start = function () {
+            addSpinner($('body'));
+        };
+        this.stop = function () {
+            removeSpinner($('.veil'));
+        };
+    };
+    return new Fn();
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav id="navigation" class="navigation">
+    <div class="search"><input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations"></div>
+    <h2><a href="../../index.html">Home</a></h2><h3>Tutorials</h3><ul><li class="item" data-name="Controllers"><span class="expand">&nbsp;</span><a href="tutorial-Controllers.html">Controllers</a></li><li class="item" data-name="Payment"><span class="expand">&nbsp;</span><a href="tutorial-Payment.html">Payment processing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSpinner">addSpinner</a></li><li><a href="global.html#appendToUrl">appendToUrl</a></li><li><a href="global.html#applyModals">applyModals</a></li><li><a href="global.html#attributeSelect">attributeSelect</a></li><li><a href="global.html#chooseBonusProducts">chooseBonusProducts</a></li><li><a href="global.html#clearBillingAddressFormValues">clearBillingAddressFormValues</a></li><li><a href="global.html#clearCreditCardForm">clearCreditCardForm</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearFormErrors">clearFormErrors</a></li><li><a href="global.html#clearModals">clearModals</a></li><li><a href="global.html#clearPreviousErrors">clearPreviousErrors</a></li><li><a href="global.html#clearShippingForms">clearShippingForms</a></li><li><a href="global.html#confirmDelete">confirmDelete</a></li><li><a href="global.html#createCarousel">createCarousel</a></li><li><a href="global.html#createCategoryAnchor">createCategoryAnchor</a></li><li><a href="global.html#createErrorNotification">createErrorNotification</a></li><li><a href="global.html#createNewShipment">createNewShipment</a></li><li><a href="global.html#createProductAnchor">createProductAnchor</a></li><li><a href="global.html#displayMessage">displayMessage</a></li><li><a href="global.html#editMultiShipAddress">editMultiShipAddress</a></li><li><a href="global.html#editOrEnterMultiShipInfo">editOrEnterMultiShipInfo</a></li><li><a href="global.html#enterMultishipView">enterMultishipView</a></li><li><a href="global.html#fillDomElement">fillDomElement</a></li><li><a href="global.html#fillModalElement">fillModalElement</a></li><li><a href="global.html#findItem">findItem</a></li><li><a href="global.html#getAddressFieldsFromUI">getAddressFieldsFromUI</a></li><li><a href="global.html#getAddToCartUrl">getAddToCartUrl</a></li><li><a href="global.html#getAttributesHtml">getAttributesHtml</a></li><li><a href="global.html#getChildProducts">getChildProducts</a></li><li><a href="global.html#getContent">getContent</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getEinsteinUtils">getEinsteinUtils</a></li><li><a href="global.html#getModalHtmlElement">getModalHtmlElement</a></li><li><a href="global.html#getOptions">getOptions</a></li><li><a href="global.html#getPidValue">getPidValue</a></li><li><a href="global.html#getQuantitySelected">getQuantitySelected</a></li><li><a href="global.html#getQuantitySelector">getQuantitySelector</a></li><li><a href="global.html#getSuggestions">getSuggestions</a></li><li><a href="global.html#getSuggestionsWrapper">getSuggestionsWrapper</a></li><li><a href="global.html#handleArrow">handleArrow</a></li><li><a href="global.html#handleMoreContentBelowIcon">handleMoreContentBelowIcon</a></li><li><a href="global.html#handlePostCartAdd">handlePostCartAdd</a></li><li><a href="global.html#handleRefinements">handleRefinements</a></li><li><a href="global.html#handleVariantResponse">handleVariantResponse</a></li><li><a href="global.html#hiddenSlides">hiddenSlides</a></li><li><a href="global.html#isMobileSearch">isMobileSearch</a></li><li><a href="global.html#loadFormErrors">loadFormErrors</a></li><li><a href="global.html#loadRecommendations">loadRecommendations</a></li><li><a href="global.html#maps">maps</a></li><li><a href="global.html#miniCartReportingUrl">miniCartReportingUrl</a></li><li><a href="global.html#optionValueForAddress">optionValueForAddress</a></li><li><a href="global.html#parseHtml">parseHtml</a></li><li><a href="global.html#parseResults">parseResults</a></li><li><a href="global.html#populateAddressSummary">populateAddressSummary</a></li><li><a href="global.html#positionSuggestions">positionSuggestions</a></li><li><a href="global.html#processNonSwatchValues">processNonSwatchValues</a></li><li><a href="global.html#processRecommendationsTile">processRecommendationsTile</a></li><li><a href="global.html#processResponse">processResponse</a></li><li><a href="global.html#processSwatchValues">processSwatchValues</a></li><li><a href="global.html#removeSpinner">removeSpinner</a></li><li><a href="global.html#screenSize">screenSize</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#selectShippingMethodAjax">selectShippingMethodAjax</a></li><li><a href="global.html#shippingFormResponse">shippingFormResponse</a></li><li><a href="global.html#showConsentModal">showConsentModal</a></li><li><a href="global.html#showControls">showControls</a></li><li><a href="global.html#tearDownSuggestions">tearDownSuggestions</a></li><li><a href="global.html#toggleSuggestionsIcon">toggleSuggestionsIcon</a></li><li><a href="global.html#updateApproachingDiscounts">updateApproachingDiscounts</a></li><li><a href="global.html#updateAttrs">updateAttrs</a></li><li><a href="global.html#updateAvailability">updateAvailability</a></li><li><a href="global.html#updateBillingAddressFormValues">updateBillingAddressFormValues</a></li><li><a href="global.html#updateBillingAddressSelector">updateBillingAddressSelector</a></li><li><a href="global.html#updateBillingInformation">updateBillingInformation</a></li><li><a href="global.html#updateCartTotals">updateCartTotals</a></li><li><a href="global.html#updateDom">updateDom</a></li><li><a href="global.html#updateMultiShipInformation">updateMultiShipInformation</a></li><li><a href="global.html#updateOptions">updateOptions</a></li><li><a href="global.html#updateOrderProductSummaryInformation">updateOrderProductSummaryInformation</a></li><li><a href="global.html#updatePaymentInformation">updatePaymentInformation</a></li><li><a href="global.html#updatePLIShippingSummaryInformation">updatePLIShippingSummaryInformation</a></li><li><a href="global.html#updateProductDetails">updateProductDetails</a></li><li><a href="global.html#updateProductLineItemShipmentUUIDs">updateProductLineItemShipmentUUIDs</a></li><li><a href="global.html#updateQuantities">updateQuantities</a></li><li><a href="global.html#updateShippingAddressFormValues">updateShippingAddressFormValues</a></li><li><a href="global.html#updateShippingAddressSelector">updateShippingAddressSelector</a></li><li><a href="global.html#updateShippingInformation">updateShippingInformation</a></li><li><a href="global.html#updateShippingMethodList">updateShippingMethodList</a></li><li><a href="global.html#updateShippingMethods">updateShippingMethods</a></li><li><a href="global.html#updateShippingSummaryInformation">updateShippingSummaryInformation</a></li><li><a href="global.html#updateSortOptions">updateSortOptions</a></li><li><a href="global.html#updateStoresResults">updateStoresResults</a></li><li><a href="global.html#updateTotals">updateTotals</a></li><li><a href="global.html#validateBasket">validateBasket</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#viewMultishipAddress">viewMultishipAddress</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Salesforce Commerce Cloud<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+</footer>
+
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/main.js"></script>
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

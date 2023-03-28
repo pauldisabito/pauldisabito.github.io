@@ -12,6 +12,9 @@ title: Salesforce B2C Developer Documentation Resources
 * [B2C Commerce Import and Export Schemas](docs/current/xsd/index.html)
 * [B2C Commerce Content JSON Schemas](docs/current/content/index.html)
 * [Legacy Developer Documentation (PDF)](docs/current/LegacyDeveloperDocumentation.pdf)
+* [Script Debugger API (SDAPI)](docs/current/sdapi_2_0.pdf)
+* [Storefront Reference Architecture (SFRA) JavaScript](docs/current/sfrajsdoc/index.html)
+* [SiteGenesis Server-side JavaScript](docs/current/jsdoc/dist/js/server/index.html)
 
 # Upcoming Release (23.4)
 

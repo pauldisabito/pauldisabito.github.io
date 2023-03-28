@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFRA Server-side Javascript - Source: checkout/checkout.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-menu" viewBox="0 0 1024 1024">
+    <title>menu</title>
+    <path class="path1" d="M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"></path>
+</symbol>
+</defs>
+</svg>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger menu-icon" />
+<label for="nav-trigger"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></label>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SFRA</a> /
+        <a href="index.html">Client-side JS</a> /
+        Source: checkout/checkout.js
+    </h2>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+var addressHelpers = require('./address');
+var shippingHelpers = require('./shipping');
+var billingHelpers = require('./billing');
+var summaryHelpers = require('./summary');
+var formHelpers = require('./formErrors');
+var scrollAnimate = require('../components/scrollAnimate');
+
+
+/**
+ * Create the jQuery Checkout Plugin.
+ *
+ * This jQuery plugin will be registered on the dom element in checkout.isml with the
+ * id of "checkout-main".
+ *
+ * The checkout plugin will handle the different state the user interface is in as the user
+ * progresses through the varying forms such as shipping and payment.
+ *
+ * Billing info and payment info are used a bit synonymously in this code.
+ *
+ */
+(function ($) {
+    $.fn.checkout = function () { // eslint-disable-line
+        var plugin = this;
+
+        //
+        // Collect form data from user input
+        //
+        var formData = {
+            // Shipping Address
+            shipping: {},
+
+            // Billing Address
+            billing: {},
+
+            // Payment
+            payment: {},
+
+            // Gift Codes
+            giftCode: {}
+        };
+
+        //
+        // The different states/stages of checkout
+        //
+        var checkoutStages = [
+            'shipping',
+            'payment',
+            'placeOrder',
+            'submitted'
+        ];
+
+        /**
+         * Updates the URL to determine stage
+         * @param {number} currentStage - The current stage the user is currently on in the checkout
+         */
+        function updateUrl(currentStage) {
+            history.pushState(
+                checkoutStages[currentStage],
+                document.title,
+                location.pathname
+                + '?stage='
+                + checkoutStages[currentStage]
+                + '#'
+                + checkoutStages[currentStage]
+            );
+        }
+
+        //
+        // Local member methods of the Checkout plugin
+        //
+        var members = {
+
+            // initialize the currentStage variable for the first time
+            currentStage: 0,
+
+            /**
+             * Set or update the checkout stage (AKA the shipping, billing, payment, etc... steps)
+             * @returns {Object} a promise
+             */
+            updateStage: function () {
+                var stage = checkoutStages[members.currentStage];
+                var defer = $.Deferred(); // eslint-disable-line
+
+                if (stage === 'shipping') {
+                    //
+                    // Clear Previous Errors
+                    //
+                    formHelpers.clearPreviousErrors('.shipping-form');
+
+                    //
+                    // Submit the Shipping Address Form
+                    //
+                    var isMultiShip = $('#checkout-main').hasClass('multi-ship');
+                    var formSelector = isMultiShip ?
+                        '.multi-shipping .active form' : '.single-shipping .shipping-form';
+                    var form = $(formSelector);
+
+                    if (isMultiShip &amp;&amp; form.length === 0) {
+                        // disable the next:Payment button here
+                        $('body').trigger('checkout:disableButton', '.next-step-button button');
+                        // in case the multi ship form is already submitted
+                        var url = $('#checkout-main').attr('data-checkout-get-url');
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            success: function (data) {
+                                // enable the next:Payment button here
+                                $('body').trigger('checkout:enableButton', '.next-step-button button');
+                                if (!data.error) {
+                                    $('body').trigger('checkout:updateCheckoutView',
+                                        { order: data.order, customer: data.customer });
+                                    defer.resolve();
+                                } else if (data.message &amp;&amp; $('.shipping-error .alert-danger').length &lt; 1) {
+                                    var errorMsg = data.message;
+                                    var errorHtml = '&lt;div class="alert alert-danger alert-dismissible valid-cart-error ' +
+                                        'fade show" role="alert">' +
+                                        '&lt;button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                        '&lt;span aria-hidden="true">&amp;times;&lt;/span>' +
+                                        '&lt;/button>' + errorMsg + '&lt;/div>';
+                                    $('.shipping-error').append(errorHtml);
+                                    scrollAnimate($('.shipping-error'));
+                                    defer.reject();
+                                } else if (data.redirectUrl) {
+                                    window.location.href = data.redirectUrl;
+                                }
+                            },
+                            error: function () {
+                                // enable the next:Payment button here
+                                $('body').trigger('checkout:enableButton', '.next-step-button button');
+                                // Server error submitting form
+                                defer.reject();
+                            }
+                        });
+                    } else {
+                        var shippingFormData = form.serialize();
+
+                        $('body').trigger('checkout:serializeShipping', {
+                            form: form,
+                            data: shippingFormData,
+                            callback: function (data) {
+                                shippingFormData = data;
+                            }
+                        });
+                        // disable the next:Payment button here
+                        $('body').trigger('checkout:disableButton', '.next-step-button button');
+                        $.ajax({
+                            url: form.attr('action'),
+                            type: 'post',
+                            data: shippingFormData,
+                            success: function (data) {
+                                 // enable the next:Payment button here
+                                $('body').trigger('checkout:enableButton', '.next-step-button button');
+                                shippingHelpers.methods.shippingFormResponse(defer, data);
+                            },
+                            error: function (err) {
+                                // enable the next:Payment button here
+                                $('body').trigger('checkout:enableButton', '.next-step-button button');
+                                if (err.responseJSON &amp;&amp; err.responseJSON.redirectUrl) {
+                                    window.location.href = err.responseJSON.redirectUrl;
+                                }
+                                // Server error submitting form
+                                defer.reject(err.responseJSON);
+                            }
+                        });
+                    }
+                    return defer;
+                } else if (stage === 'payment') {
+                    //
+                    // Submit the Billing Address Form
+                    //
+
+                    formHelpers.clearPreviousErrors('.payment-form');
+
+                    var billingAddressForm = $('#dwfrm_billing .billing-address-block :input').serialize();
+
+                    $('body').trigger('checkout:serializeBilling', {
+                        form: $('#dwfrm_billing .billing-address-block'),
+                        data: billingAddressForm,
+                        callback: function (data) {
+                            if (data) {
+                                billingAddressForm = data;
+                            }
+                        }
+                    });
+
+                    var contactInfoForm = $('#dwfrm_billing .contact-info-block :input').serialize();
+
+                    $('body').trigger('checkout:serializeBilling', {
+                        form: $('#dwfrm_billing .contact-info-block'),
+                        data: contactInfoForm,
+                        callback: function (data) {
+                            if (data) {
+                                contactInfoForm = data;
+                            }
+                        }
+                    });
+
+                    var activeTabId = $('.tab-pane.active').attr('id');
+                    var paymentInfoSelector = '#dwfrm_billing .' + activeTabId + ' .payment-form-fields :input';
+                    var paymentInfoForm = $(paymentInfoSelector).serialize();
+
+                    $('body').trigger('checkout:serializeBilling', {
+                        form: $(paymentInfoSelector),
+                        data: paymentInfoForm,
+                        callback: function (data) {
+                            if (data) {
+                                paymentInfoForm = data;
+                            }
+                        }
+                    });
+
+                    var paymentForm = billingAddressForm + '&amp;' + contactInfoForm + '&amp;' + paymentInfoForm;
+
+                    if ($('.data-checkout-stage').data('customer-type') === 'registered') {
+                        // if payment method is credit card
+                        if ($('.payment-information').data('payment-method-id') === 'CREDIT_CARD') {
+                            if (!($('.payment-information').data('is-new-payment'))) {
+                                var cvvCode = $('.saved-payment-instrument.' +
+                                    'selected-payment .saved-payment-security-code').val();
+
+                                if (cvvCode === '') {
+                                    var cvvElement = $('.saved-payment-instrument.' +
+                                        'selected-payment ' +
+                                        '.form-control');
+                                    cvvElement.addClass('is-invalid');
+                                    scrollAnimate(cvvElement);
+                                    defer.reject();
+                                    return defer;
+                                }
+
+                                var $savedPaymentInstrument = $('.saved-payment-instrument' +
+                                    '.selected-payment'
+                                );
+
+                                paymentForm += '&amp;storedPaymentUUID=' +
+                                    $savedPaymentInstrument.data('uuid');
+
+                                paymentForm += '&amp;securityCode=' + cvvCode;
+                            }
+                        }
+                    }
+                     // disable the next:Place Order button here
+                    $('body').trigger('checkout:disableButton', '.next-step-button button');
+
+                    $.ajax({
+                        url: $('#dwfrm_billing').attr('action'),
+                        method: 'POST',
+                        data: paymentForm,
+                        success: function (data) {
+                             // enable the next:Place Order button here
+                            $('body').trigger('checkout:enableButton', '.next-step-button button');
+                            // look for field validation errors
+                            if (data.error) {
+                                if (data.fieldErrors.length) {
+                                    data.fieldErrors.forEach(function (error) {
+                                        if (Object.keys(error).length) {
+                                            formHelpers.loadFormErrors('.payment-form', error);
+                                        }
+                                    });
+                                }
+
+                                if (data.serverErrors.length) {
+                                    data.serverErrors.forEach(function (error) {
+                                        $('.error-message').show();
+                                        $('.error-message-text').text(error);
+                                        scrollAnimate($('.error-message'));
+                                    });
+                                }
+
+                                if (data.cartError) {
+                                    window.location.href = data.redirectUrl;
+                                }
+
+                                defer.reject();
+                            } else {
+                                //
+                                // Populate the Address Summary
+                                //
+                                $('body').trigger('checkout:updateCheckoutView',
+                                    { order: data.order, customer: data.customer });
+
+                                if (data.renderedPaymentInstruments) {
+                                    $('.stored-payments').empty().html(
+                                        data.renderedPaymentInstruments
+                                    );
+                                }
+
+                                if (data.customer.registeredUser
+                                    &amp;&amp; data.customer.customerPaymentInstruments.length
+                                ) {
+                                    $('.cancel-new-payment').removeClass('checkout-hidden');
+                                }
+
+                                scrollAnimate();
+                                defer.resolve(data);
+                            }
+                        },
+                        error: function (err) {
+                            // enable the next:Place Order button here
+                            $('body').trigger('checkout:enableButton', '.next-step-button button');
+                            if (err.responseJSON &amp;&amp; err.responseJSON.redirectUrl) {
+                                window.location.href = err.responseJSON.redirectUrl;
+                            }
+                        }
+                    });
+
+                    return defer;
+                } else if (stage === 'placeOrder') {
+                    // disable the placeOrder button here
+                    $('body').trigger('checkout:disableButton', '.next-step-button button');
+                    $.ajax({
+                        url: $('.place-order').data('action'),
+                        method: 'POST',
+                        success: function (data) {
+                            // enable the placeOrder button here
+                            $('body').trigger('checkout:enableButton', '.next-step-button button');
+                            if (data.error) {
+                                if (data.cartError) {
+                                    window.location.href = data.redirectUrl;
+                                    defer.reject();
+                                } else {
+                                    // go to appropriate stage and display error message
+                                    defer.reject(data);
+                                }
+                            } else {
+                                var continueUrl = data.continueUrl;
+                                var urlParams = {
+                                    ID: data.orderID,
+                                    token: data.orderToken
+                                };
+
+                                continueUrl += (continueUrl.indexOf('?') !== -1 ? '&amp;' : '?') +
+                                    Object.keys(urlParams).map(function (key) {
+                                        return key + '=' + encodeURIComponent(urlParams[key]);
+                                    }).join('&amp;');
+
+                                window.location.href = continueUrl;
+                                defer.resolve(data);
+                            }
+                        },
+                        error: function () {
+                            // enable the placeOrder button here
+                            $('body').trigger('checkout:enableButton', $('.next-step-button button'));
+                        }
+                    });
+
+                    return defer;
+                }
+                var p = $('&lt;div>').promise(); // eslint-disable-line
+                setTimeout(function () {
+                    p.done(); // eslint-disable-line
+                }, 500);
+                return p; // eslint-disable-line
+            },
+
+            /**
+             * Initialize the checkout stage.
+             *
+             * TODO: update this to allow stage to be set from server?
+             */
+            initialize: function () {
+                // set the initial state of checkout
+                members.currentStage = checkoutStages
+                    .indexOf($('.data-checkout-stage').data('checkout-stage'));
+                $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+
+                //
+                // Handle Payment option selection
+                //
+                $('input[name$="paymentMethod"]', plugin).on('change', function () {
+                    $('.credit-card-form').toggle($(this).val() === 'CREDIT_CARD');
+                });
+
+                //
+                // Handle Next State button click
+                //
+                $(plugin).on('click', '.next-step-button button', function () {
+                    members.nextStage();
+                });
+
+                //
+                // Handle Edit buttons on shipping and payment summary cards
+                //
+                $('.shipping-summary .edit-button', plugin).on('click', function () {
+                    if (!$('#checkout-main').hasClass('multi-ship')) {
+                        $('body').trigger('shipping:selectSingleShipping');
+                    }
+
+                    members.gotoStage('shipping');
+                });
+
+                $('.payment-summary .edit-button', plugin).on('click', function () {
+                    members.gotoStage('payment');
+                });
+
+                //
+                // remember stage (e.g. shipping)
+                //
+                updateUrl(members.currentStage);
+
+                //
+                // Listen for foward/back button press and move to correct checkout-stage
+                //
+                $(window).on('popstate', function (e) {
+                    //
+                    // Back button when event state less than current state in ordered
+                    // checkoutStages array.
+                    //
+                    if (e.state === null ||
+                        checkoutStages.indexOf(e.state) &lt; members.currentStage) {
+                        members.handlePrevStage(false);
+                    } else if (checkoutStages.indexOf(e.state) > members.currentStage) {
+                        // Forward button  pressed
+                        members.handleNextStage(false);
+                    }
+                });
+
+                //
+                // Set the form data
+                //
+                plugin.data('formData', formData);
+            },
+
+            /**
+             * The next checkout state step updates the css for showing correct buttons etc...
+             */
+            nextStage: function () {
+                var promise = members.updateStage();
+
+                promise.done(function () {
+                    // Update UI with new stage
+                    members.handleNextStage(true);
+                });
+
+                promise.fail(function (data) {
+                    // show errors
+                    if (data) {
+                        if (data.errorStage) {
+                            members.gotoStage(data.errorStage.stage);
+
+                            if (data.errorStage.step === 'billingAddress') {
+                                var $billingAddressSameAsShipping = $(
+                                    'input[name$="_shippingAddressUseAsBillingAddress"]'
+                                );
+                                if ($billingAddressSameAsShipping.is(':checked')) {
+                                    $billingAddressSameAsShipping.prop('checked', false);
+                                }
+                            }
+                        }
+
+                        if (data.errorMessage) {
+                            $('.error-message').show();
+                            $('.error-message-text').text(data.errorMessage);
+                        }
+                    }
+                });
+            },
+
+            /**
+             * The next checkout state step updates the css for showing correct buttons etc...
+             *
+             * @param {boolean} bPushState - boolean when true pushes state using the history api.
+             */
+            handleNextStage: function (bPushState) {
+                if (members.currentStage &lt; checkoutStages.length - 1) {
+                    // move stage forward
+                    members.currentStage++;
+
+                    //
+                    // show new stage in url (e.g.payment)
+                    //
+                    if (bPushState) {
+                        updateUrl(members.currentStage);
+                    }
+                }
+
+                // Set the next stage on the DOM
+                $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+            },
+
+            /**
+             * Previous State
+             */
+            handlePrevStage: function () {
+                if (members.currentStage > 0) {
+                    // move state back
+                    members.currentStage--;
+                    updateUrl(members.currentStage);
+                }
+
+                $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+            },
+
+            /**
+             * Use window history to go to a checkout stage
+             * @param {string} stageName - the checkout state to goto
+             */
+            gotoStage: function (stageName) {
+                members.currentStage = checkoutStages.indexOf(stageName);
+                updateUrl(members.currentStage);
+                $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+            }
+        };
+
+        //
+        // Initialize the checkout
+        //
+        members.initialize();
+
+        return this;
+    };
+}(jQuery));
+
+
+var exports = {
+    initialize: function () {
+        $('#checkout-main').checkout();
+    },
+
+    updateCheckoutView: function () {
+        $('body').on('checkout:updateCheckoutView', function (e, data) {
+            shippingHelpers.methods.updateMultiShipInformation(data.order);
+            summaryHelpers.updateTotals(data.order.totals);
+            data.order.shipping.forEach(function (shipping) {
+                shippingHelpers.methods.updateShippingInformation(
+                    shipping,
+                    data.order,
+                    data.customer,
+                    data.options
+                );
+            });
+            billingHelpers.methods.updateBillingInformation(
+                data.order,
+                data.customer,
+                data.options
+            );
+            billingHelpers.methods.updatePaymentInformation(data.order, data.options);
+            summaryHelpers.updateOrderProductSummaryInformation(data.order, data.options);
+        });
+    },
+
+    disableButton: function () {
+        $('body').on('checkout:disableButton', function (e, button) {
+            $(button).prop('disabled', true);
+        });
+    },
+
+    enableButton: function () {
+        $('body').on('checkout:enableButton', function (e, button) {
+            $(button).prop('disabled', false);
+        });
+    }
+
+
+};
+
+[billingHelpers, shippingHelpers, addressHelpers].forEach(function (library) {
+    Object.keys(library).forEach(function (item) {
+        if (typeof library[item] === 'object') {
+            exports[item] = $.extend({}, exports[item], library[item]);
+        } else {
+            exports[item] = library[item];
+        }
+    });
+});
+
+module.exports = exports;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav id="navigation" class="navigation">
+    <div class="search"><input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations"></div>
+    <h2><a href="../../index.html">Home</a></h2><h3>Tutorials</h3><ul><li class="item" data-name="Controllers"><span class="expand">&nbsp;</span><a href="tutorial-Controllers.html">Controllers</a></li><li class="item" data-name="Payment"><span class="expand">&nbsp;</span><a href="tutorial-Payment.html">Payment processing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSpinner">addSpinner</a></li><li><a href="global.html#appendToUrl">appendToUrl</a></li><li><a href="global.html#applyModals">applyModals</a></li><li><a href="global.html#attributeSelect">attributeSelect</a></li><li><a href="global.html#chooseBonusProducts">chooseBonusProducts</a></li><li><a href="global.html#clearBillingAddressFormValues">clearBillingAddressFormValues</a></li><li><a href="global.html#clearCreditCardForm">clearCreditCardForm</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearFormErrors">clearFormErrors</a></li><li><a href="global.html#clearModals">clearModals</a></li><li><a href="global.html#clearPreviousErrors">clearPreviousErrors</a></li><li><a href="global.html#clearShippingForms">clearShippingForms</a></li><li><a href="global.html#confirmDelete">confirmDelete</a></li><li><a href="global.html#createCarousel">createCarousel</a></li><li><a href="global.html#createCategoryAnchor">createCategoryAnchor</a></li><li><a href="global.html#createErrorNotification">createErrorNotification</a></li><li><a href="global.html#createNewShipment">createNewShipment</a></li><li><a href="global.html#createProductAnchor">createProductAnchor</a></li><li><a href="global.html#displayMessage">displayMessage</a></li><li><a href="global.html#editMultiShipAddress">editMultiShipAddress</a></li><li><a href="global.html#editOrEnterMultiShipInfo">editOrEnterMultiShipInfo</a></li><li><a href="global.html#enterMultishipView">enterMultishipView</a></li><li><a href="global.html#fillDomElement">fillDomElement</a></li><li><a href="global.html#fillModalElement">fillModalElement</a></li><li><a href="global.html#findItem">findItem</a></li><li><a href="global.html#getAddressFieldsFromUI">getAddressFieldsFromUI</a></li><li><a href="global.html#getAddToCartUrl">getAddToCartUrl</a></li><li><a href="global.html#getAttributesHtml">getAttributesHtml</a></li><li><a href="global.html#getChildProducts">getChildProducts</a></li><li><a href="global.html#getContent">getContent</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getEinsteinUtils">getEinsteinUtils</a></li><li><a href="global.html#getModalHtmlElement">getModalHtmlElement</a></li><li><a href="global.html#getOptions">getOptions</a></li><li><a href="global.html#getPidValue">getPidValue</a></li><li><a href="global.html#getQuantitySelected">getQuantitySelected</a></li><li><a href="global.html#getQuantitySelector">getQuantitySelector</a></li><li><a href="global.html#getSuggestions">getSuggestions</a></li><li><a href="global.html#getSuggestionsWrapper">getSuggestionsWrapper</a></li><li><a href="global.html#handleArrow">handleArrow</a></li><li><a href="global.html#handleMoreContentBelowIcon">handleMoreContentBelowIcon</a></li><li><a href="global.html#handlePostCartAdd">handlePostCartAdd</a></li><li><a href="global.html#handleRefinements">handleRefinements</a></li><li><a href="global.html#handleVariantResponse">handleVariantResponse</a></li><li><a href="global.html#hiddenSlides">hiddenSlides</a></li><li><a href="global.html#isMobileSearch">isMobileSearch</a></li><li><a href="global.html#loadFormErrors">loadFormErrors</a></li><li><a href="global.html#loadRecommendations">loadRecommendations</a></li><li><a href="global.html#maps">maps</a></li><li><a href="global.html#miniCartReportingUrl">miniCartReportingUrl</a></li><li><a href="global.html#optionValueForAddress">optionValueForAddress</a></li><li><a href="global.html#parseHtml">parseHtml</a></li><li><a href="global.html#parseResults">parseResults</a></li><li><a href="global.html#populateAddressSummary">populateAddressSummary</a></li><li><a href="global.html#positionSuggestions">positionSuggestions</a></li><li><a href="global.html#processNonSwatchValues">processNonSwatchValues</a></li><li><a href="global.html#processRecommendationsTile">processRecommendationsTile</a></li><li><a href="global.html#processResponse">processResponse</a></li><li><a href="global.html#processSwatchValues">processSwatchValues</a></li><li><a href="global.html#removeSpinner">removeSpinner</a></li><li><a href="global.html#screenSize">screenSize</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#selectShippingMethodAjax">selectShippingMethodAjax</a></li><li><a href="global.html#shippingFormResponse">shippingFormResponse</a></li><li><a href="global.html#showConsentModal">showConsentModal</a></li><li><a href="global.html#showControls">showControls</a></li><li><a href="global.html#tearDownSuggestions">tearDownSuggestions</a></li><li><a href="global.html#toggleSuggestionsIcon">toggleSuggestionsIcon</a></li><li><a href="global.html#updateApproachingDiscounts">updateApproachingDiscounts</a></li><li><a href="global.html#updateAttrs">updateAttrs</a></li><li><a href="global.html#updateAvailability">updateAvailability</a></li><li><a href="global.html#updateBillingAddressFormValues">updateBillingAddressFormValues</a></li><li><a href="global.html#updateBillingAddressSelector">updateBillingAddressSelector</a></li><li><a href="global.html#updateBillingInformation">updateBillingInformation</a></li><li><a href="global.html#updateCartTotals">updateCartTotals</a></li><li><a href="global.html#updateDom">updateDom</a></li><li><a href="global.html#updateMultiShipInformation">updateMultiShipInformation</a></li><li><a href="global.html#updateOptions">updateOptions</a></li><li><a href="global.html#updateOrderProductSummaryInformation">updateOrderProductSummaryInformation</a></li><li><a href="global.html#updatePaymentInformation">updatePaymentInformation</a></li><li><a href="global.html#updatePLIShippingSummaryInformation">updatePLIShippingSummaryInformation</a></li><li><a href="global.html#updateProductDetails">updateProductDetails</a></li><li><a href="global.html#updateProductLineItemShipmentUUIDs">updateProductLineItemShipmentUUIDs</a></li><li><a href="global.html#updateQuantities">updateQuantities</a></li><li><a href="global.html#updateShippingAddressFormValues">updateShippingAddressFormValues</a></li><li><a href="global.html#updateShippingAddressSelector">updateShippingAddressSelector</a></li><li><a href="global.html#updateShippingInformation">updateShippingInformation</a></li><li><a href="global.html#updateShippingMethodList">updateShippingMethodList</a></li><li><a href="global.html#updateShippingMethods">updateShippingMethods</a></li><li><a href="global.html#updateShippingSummaryInformation">updateShippingSummaryInformation</a></li><li><a href="global.html#updateSortOptions">updateSortOptions</a></li><li><a href="global.html#updateStoresResults">updateStoresResults</a></li><li><a href="global.html#updateTotals">updateTotals</a></li><li><a href="global.html#validateBasket">validateBasket</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#viewMultishipAddress">viewMultishipAddress</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Salesforce Commerce Cloud<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+</footer>
+
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/main.js"></script>
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFRA Server-side Javascript - Source: components/search.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-menu" viewBox="0 0 1024 1024">
+    <title>menu</title>
+    <path class="path1" d="M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"></path>
+</symbol>
+</defs>
+</svg>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger menu-icon" />
+<label for="nav-trigger"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></label>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SFRA</a> /
+        <a href="index.html">Client-side JS</a> /
+        Source: components/search.js
+    </h2>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+var debounce = require('lodash/debounce');
+var endpoint = $('.suggestions-wrapper').data('url');
+var minChars = 1;
+var UP_KEY = 38;
+var DOWN_KEY = 40;
+var DIRECTION_DOWN = 1;
+var DIRECTION_UP = -1;
+
+/**
+ * Retrieves Suggestions element relative to scope
+ *
+ * @param {Object} scope - Search input field DOM element
+ * @return {JQuery} - .suggestions-wrapper element
+ */
+function getSuggestionsWrapper(scope) {
+    return $(scope).siblings('.suggestions-wrapper');
+}
+
+/**
+ * Determines whether DOM element is inside the .search-mobile class
+ *
+ * @param {Object} scope - DOM element, usually the input.search-field element
+ * @return {boolean} - Whether DOM element is inside  div.search-mobile
+ */
+function isMobileSearch(scope) {
+    return !!$(scope).closest('.search-mobile').length;
+}
+
+/**
+ * Remove modal classes needed for mobile suggestions
+ *
+ */
+function clearModals() {
+    $('body').removeClass('modal-open');
+    $('header').siblings().attr('aria-hidden', 'false');
+    $('.suggestions').removeClass('modal');
+}
+
+/**
+ * Apply modal classes needed for mobile suggestions
+ *
+ * @param {Object} scope - Search input field DOM element
+ */
+function applyModals(scope) {
+    if (isMobileSearch(scope)) {
+        $('body').addClass('modal-open');
+        $('header').siblings().attr('aria-hidden', 'true');
+        getSuggestionsWrapper(scope).find('.suggestions').addClass('modal');
+    }
+}
+
+/**
+ * Tear down Suggestions panel
+ */
+function tearDownSuggestions() {
+    $('input.search-field').val('');
+    clearModals();
+    $('.search-mobile .suggestions').unbind('scroll');
+    $('.suggestions-wrapper').empty();
+}
+
+/**
+ * Toggle search field icon from search to close and vice-versa
+ *
+ * @param {string} action - Action to toggle to
+ */
+function toggleSuggestionsIcon(action) {
+    var mobileSearchIcon = '.search-mobile button.';
+    var iconSearch = 'fa-search';
+    var iconSearchClose = 'fa-close';
+
+    if (action === 'close') {
+        $(mobileSearchIcon + iconSearch).removeClass(iconSearch).addClass(iconSearchClose).attr('type', 'button');
+    } else {
+        $(mobileSearchIcon + iconSearchClose).removeClass(iconSearchClose).addClass(iconSearch).attr('type', 'submit');
+    }
+}
+
+/**
+ * Determines whether the "More Content Below" icon should be displayed
+ *
+ * @param {Object} scope - DOM element, usually the input.search-field element
+ */
+function handleMoreContentBelowIcon(scope) {
+    if (($(scope).scrollTop() + $(scope).innerHeight()) >= $(scope)[0].scrollHeight) {
+        $('.more-below').fadeOut();
+    } else {
+        $('.more-below').fadeIn();
+    }
+}
+
+/**
+ * Positions Suggestions panel on page
+ *
+ * @param {Object} scope - DOM element, usually the input.search-field element
+ */
+function positionSuggestions(scope) {
+    var outerHeight;
+    var $scope;
+    var $suggestions;
+    var top;
+
+    if (isMobileSearch(scope)) {
+        $scope = $(scope);
+        top = $scope.offset().top;
+        outerHeight = $scope.outerHeight();
+        $suggestions = getSuggestionsWrapper(scope).find('.suggestions');
+        $suggestions.css('top', top + outerHeight);
+
+        handleMoreContentBelowIcon(scope);
+
+        // Unfortunately, we have to bind this dynamically, as the live scroll event was not
+        // properly detecting dynamic suggestions element's scroll event
+        $suggestions.scroll(function () {
+            handleMoreContentBelowIcon(this);
+        });
+    }
+}
+
+/**
+ * Process Ajax response for SearchServices-GetSuggestions
+ *
+ * @param {Object|string} response - Empty object literal if null response or string with rendered
+ *                                   suggestions template contents
+ */
+function processResponse(response) {
+    var $suggestionsWrapper = getSuggestionsWrapper(this).empty();
+
+    $.spinner().stop();
+
+    if (typeof (response) !== 'object') {
+        $suggestionsWrapper.append(response).show();
+        $(this).siblings('.reset-button').addClass('d-sm-block');
+        positionSuggestions(this);
+
+        if (isMobileSearch(this)) {
+            toggleSuggestionsIcon('close');
+            applyModals(this);
+        }
+
+        // Trigger screen reader by setting aria-describedby with the new suggestion message.
+        var suggestionsList = $('.suggestions .item');
+        if ($(suggestionsList).length) {
+            $('input.search-field').attr('aria-describedby', 'search-result-count');
+        } else {
+            $('input.search-field').removeAttr('aria-describedby');
+        }
+    } else {
+        $suggestionsWrapper.hide();
+    }
+}
+
+/**
+ * Retrieve suggestions
+ *
+ * @param {Object} scope - Search field DOM element
+ */
+function getSuggestions(scope) {
+    if ($(scope).val().length >= minChars) {
+        $.spinner().start();
+        $.ajax({
+            context: scope,
+            url: endpoint + encodeURIComponent($(scope).val()),
+            method: 'GET',
+            success: processResponse,
+            error: function () {
+                $.spinner().stop();
+            }
+        });
+    } else {
+        toggleSuggestionsIcon('search');
+        $(scope).siblings('.reset-button').removeClass('d-sm-block');
+        clearModals();
+        getSuggestionsWrapper(scope).empty();
+    }
+}
+
+/**
+ * Handle Search Suggestion Keyboard Arrow Keys
+ *
+ * @param {Integer} direction takes positive or negative number constant, DIRECTION_UP (-1) or DIRECTION_DOWN (+1)
+ */
+function handleArrow(direction) {
+    // get all li elements in the suggestions list
+    var suggestionsList = $('.suggestions .item');
+    if (suggestionsList.filter('.selected').length === 0) {
+        suggestionsList.first().addClass('selected');
+        $('input.search-field').each(function () {
+            $(this).attr('aria-activedescendant', suggestionsList.first()[0].id);
+        });
+    } else {
+        suggestionsList.each(function (index) {
+            var idx = index + direction;
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                $(this).removeAttr('aria-selected');
+                if (suggestionsList.eq(idx).length !== 0) {
+                    suggestionsList.eq(idx).addClass('selected');
+                    suggestionsList.eq(idx).attr('aria-selected', true);
+                    $(this).removeProp('aria-selected');
+                    $('input.search-field').each(function () {
+                        $(this).attr('aria-activedescendant', suggestionsList.eq(idx)[0].id);
+                    });
+                } else {
+                    suggestionsList.first().addClass('selected');
+                    suggestionsList.first().attr('aria-selected', true);
+                    $('input.search-field').each(function () {
+                        $(this).attr('aria-activedescendant', suggestionsList.first()[0].id);
+                    });
+                }
+                return false;
+            }
+            return true;
+        });
+    }
+}
+
+module.exports = function () {
+    $('form[name="simpleSearch"]').submit(function (e) {
+        var suggestionsList = $('.suggestions .item');
+        if (suggestionsList.filter('.selected').length !== 0) {
+            e.preventDefault();
+            suggestionsList.filter('.selected').find('a')[0].click();
+        }
+    });
+
+    $('input.search-field').each(function () {
+        /**
+         * Use debounce to avoid making an Ajax call on every single key press by waiting a few
+         * hundred milliseconds before making the request. Without debounce, the user sees the
+         * browser blink with every key press.
+         */
+        var debounceSuggestions = debounce(getSuggestions, 300);
+        $(this).on('keyup focus', function (e) {
+            // Capture Down/Up Arrow Key Events
+            switch (e.which) {
+                case DOWN_KEY:
+                    handleArrow(DIRECTION_DOWN);
+                    e.preventDefault(); // prevent moving the cursor
+                    break;
+                case UP_KEY:
+                    handleArrow(DIRECTION_UP);
+                    e.preventDefault(); // prevent moving the cursor
+                    break;
+                default:
+                    debounceSuggestions(this, e);
+            }
+        });
+    });
+
+    $('body').on('click', function (e) {
+        if (!$('.suggestions').has(e.target).length &amp;&amp; !$(e.target).hasClass('search-field')) {
+            $('.suggestions').hide();
+        }
+    });
+
+    $('body').on('click touchend', '.search-mobile button.fa-close', function (e) {
+        e.preventDefault();
+        $('.suggestions').hide();
+        toggleSuggestionsIcon('search');
+        tearDownSuggestions();
+    });
+
+    $('.site-search .reset-button').on('click', function () {
+        $(this).removeClass('d-sm-block');
+    });
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav id="navigation" class="navigation">
+    <div class="search"><input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations"></div>
+    <h2><a href="../../index.html">Home</a></h2><h3>Tutorials</h3><ul><li class="item" data-name="Controllers"><span class="expand">&nbsp;</span><a href="tutorial-Controllers.html">Controllers</a></li><li class="item" data-name="Payment"><span class="expand">&nbsp;</span><a href="tutorial-Payment.html">Payment processing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSpinner">addSpinner</a></li><li><a href="global.html#appendToUrl">appendToUrl</a></li><li><a href="global.html#applyModals">applyModals</a></li><li><a href="global.html#attributeSelect">attributeSelect</a></li><li><a href="global.html#chooseBonusProducts">chooseBonusProducts</a></li><li><a href="global.html#clearBillingAddressFormValues">clearBillingAddressFormValues</a></li><li><a href="global.html#clearCreditCardForm">clearCreditCardForm</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearFormErrors">clearFormErrors</a></li><li><a href="global.html#clearModals">clearModals</a></li><li><a href="global.html#clearPreviousErrors">clearPreviousErrors</a></li><li><a href="global.html#clearShippingForms">clearShippingForms</a></li><li><a href="global.html#confirmDelete">confirmDelete</a></li><li><a href="global.html#createCarousel">createCarousel</a></li><li><a href="global.html#createCategoryAnchor">createCategoryAnchor</a></li><li><a href="global.html#createErrorNotification">createErrorNotification</a></li><li><a href="global.html#createNewShipment">createNewShipment</a></li><li><a href="global.html#createProductAnchor">createProductAnchor</a></li><li><a href="global.html#displayMessage">displayMessage</a></li><li><a href="global.html#editMultiShipAddress">editMultiShipAddress</a></li><li><a href="global.html#editOrEnterMultiShipInfo">editOrEnterMultiShipInfo</a></li><li><a href="global.html#enterMultishipView">enterMultishipView</a></li><li><a href="global.html#fillDomElement">fillDomElement</a></li><li><a href="global.html#fillModalElement">fillModalElement</a></li><li><a href="global.html#findItem">findItem</a></li><li><a href="global.html#getAddressFieldsFromUI">getAddressFieldsFromUI</a></li><li><a href="global.html#getAddToCartUrl">getAddToCartUrl</a></li><li><a href="global.html#getAttributesHtml">getAttributesHtml</a></li><li><a href="global.html#getChildProducts">getChildProducts</a></li><li><a href="global.html#getContent">getContent</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getEinsteinUtils">getEinsteinUtils</a></li><li><a href="global.html#getModalHtmlElement">getModalHtmlElement</a></li><li><a href="global.html#getOptions">getOptions</a></li><li><a href="global.html#getPidValue">getPidValue</a></li><li><a href="global.html#getQuantitySelected">getQuantitySelected</a></li><li><a href="global.html#getQuantitySelector">getQuantitySelector</a></li><li><a href="global.html#getSuggestions">getSuggestions</a></li><li><a href="global.html#getSuggestionsWrapper">getSuggestionsWrapper</a></li><li><a href="global.html#handleArrow">handleArrow</a></li><li><a href="global.html#handleMoreContentBelowIcon">handleMoreContentBelowIcon</a></li><li><a href="global.html#handlePostCartAdd">handlePostCartAdd</a></li><li><a href="global.html#handleRefinements">handleRefinements</a></li><li><a href="global.html#handleVariantResponse">handleVariantResponse</a></li><li><a href="global.html#hiddenSlides">hiddenSlides</a></li><li><a href="global.html#isMobileSearch">isMobileSearch</a></li><li><a href="global.html#loadFormErrors">loadFormErrors</a></li><li><a href="global.html#loadRecommendations">loadRecommendations</a></li><li><a href="global.html#maps">maps</a></li><li><a href="global.html#miniCartReportingUrl">miniCartReportingUrl</a></li><li><a href="global.html#optionValueForAddress">optionValueForAddress</a></li><li><a href="global.html#parseHtml">parseHtml</a></li><li><a href="global.html#parseResults">parseResults</a></li><li><a href="global.html#populateAddressSummary">populateAddressSummary</a></li><li><a href="global.html#positionSuggestions">positionSuggestions</a></li><li><a href="global.html#processNonSwatchValues">processNonSwatchValues</a></li><li><a href="global.html#processRecommendationsTile">processRecommendationsTile</a></li><li><a href="global.html#processResponse">processResponse</a></li><li><a href="global.html#processSwatchValues">processSwatchValues</a></li><li><a href="global.html#removeSpinner">removeSpinner</a></li><li><a href="global.html#screenSize">screenSize</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#selectShippingMethodAjax">selectShippingMethodAjax</a></li><li><a href="global.html#shippingFormResponse">shippingFormResponse</a></li><li><a href="global.html#showConsentModal">showConsentModal</a></li><li><a href="global.html#showControls">showControls</a></li><li><a href="global.html#tearDownSuggestions">tearDownSuggestions</a></li><li><a href="global.html#toggleSuggestionsIcon">toggleSuggestionsIcon</a></li><li><a href="global.html#updateApproachingDiscounts">updateApproachingDiscounts</a></li><li><a href="global.html#updateAttrs">updateAttrs</a></li><li><a href="global.html#updateAvailability">updateAvailability</a></li><li><a href="global.html#updateBillingAddressFormValues">updateBillingAddressFormValues</a></li><li><a href="global.html#updateBillingAddressSelector">updateBillingAddressSelector</a></li><li><a href="global.html#updateBillingInformation">updateBillingInformation</a></li><li><a href="global.html#updateCartTotals">updateCartTotals</a></li><li><a href="global.html#updateDom">updateDom</a></li><li><a href="global.html#updateMultiShipInformation">updateMultiShipInformation</a></li><li><a href="global.html#updateOptions">updateOptions</a></li><li><a href="global.html#updateOrderProductSummaryInformation">updateOrderProductSummaryInformation</a></li><li><a href="global.html#updatePaymentInformation">updatePaymentInformation</a></li><li><a href="global.html#updatePLIShippingSummaryInformation">updatePLIShippingSummaryInformation</a></li><li><a href="global.html#updateProductDetails">updateProductDetails</a></li><li><a href="global.html#updateProductLineItemShipmentUUIDs">updateProductLineItemShipmentUUIDs</a></li><li><a href="global.html#updateQuantities">updateQuantities</a></li><li><a href="global.html#updateShippingAddressFormValues">updateShippingAddressFormValues</a></li><li><a href="global.html#updateShippingAddressSelector">updateShippingAddressSelector</a></li><li><a href="global.html#updateShippingInformation">updateShippingInformation</a></li><li><a href="global.html#updateShippingMethodList">updateShippingMethodList</a></li><li><a href="global.html#updateShippingMethods">updateShippingMethods</a></li><li><a href="global.html#updateShippingSummaryInformation">updateShippingSummaryInformation</a></li><li><a href="global.html#updateSortOptions">updateSortOptions</a></li><li><a href="global.html#updateStoresResults">updateStoresResults</a></li><li><a href="global.html#updateTotals">updateTotals</a></li><li><a href="global.html#validateBasket">validateBasket</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#viewMultishipAddress">viewMultishipAddress</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Salesforce Commerce Cloud<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+</footer>
+
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/main.js"></script>
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

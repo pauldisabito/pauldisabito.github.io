@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteGenesis Client-side JavaScript - Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="../server/styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SiteGenesis</a> /
+        <a href="index.html">Client-side JS</a> /
+        Home
+    </h2>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>JavaScript Guide</h1><h2>Modularization</h2><p><a href="http://wiki.commonjs.org/wiki/CommonJS">CommonJS</a> standard is used for client-side JavaScript modularization. The modules are then bundled into a single file using <a href="http://browserify.org/">Browserify</a>.</p>
+<p>To use browserify, run <code>gulp js</code> on the command line. See <code>README.md</code> at the root level of the project.</p>
+<h2>Authoring</h2><p>All codes are written in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode">strict mode</a>.</p>
+<p>In order to enforce a consistent style, please use <a href="http://editorconfig.org/">editorconfig</a> to set up your editors.</p>
+<p><a href="http://eslint.org/">eslint</a> is used for style and format validation.
+It can be run using the build tool, <code>npm run lint</code>. Grunt and gulp task equivalents are also available (<code>grunt lint</code> and <code>gulp lint</code>).</p>
+<h3>Code styles</h3><h4>White spaces</h4><ul>
+<li>Hard tabs everywhere (this allows different developer to configure the amount of tab size to their liking).</li>
+<li>Use 1 space after keywords <code>if</code>, <code>for</code>, <code>while</code> etc.</li>
+<li>Use one space after function for anonymous functions but not for named functions:</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>var a = function () {};
+function a() {}</code></pre><ul>
+<li>Use a space before and a space after binary operators <code>+</code>, <code>=</code>, <code>&amp;&amp;</code> etc.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>if (a === '1') {
+    a = a + '2';
+}</code></pre><p>For other more granular rules about spaces, see <code>.eslintrc.json</code>.</p>
+<h4>Variables</h4><ul>
+<li>Don't be overly descriptive with your variable names but don't abuse one-letter variables either. Find a sweet spot somewhere in between.</li>
+<li>For variables that refer to jQuery DOM elements, prefix it with <code>$</code></li>
+</ul>
+<pre class="prettyprint source lang-js"><code>var $main = $('body');
+var $form = $('.form');</code></pre><h4>Comments</h4><ul>
+<li>Use <code>//</code> for all comments.</li>
+<li>Comment everything that is not obvious.</li>
+<li>If you're adding a new check, write a comment describing why this check is important and what it checks for.</li>
+</ul>
+<h4>Misc</h4><ul>
+<li>Always use strict mode.</li>
+<li>Always use strict comparision, i.e. <code>===</code> and <code>!==</code>.</li>
+<li>Use semicolons.</li>
+<li>Don't use comma-first notation.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>// OK
+var main = 'one',
+    secondary = 'two',
+    tertiary = 'three';
+// Bad
+var main = 'one'
+    , secondary = 'two'
+    , tertiary = 'three'
+    ;</code></pre><ul>
+<li>Always use curly braces, even for a single statement</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>// OK
+if (condition === true) { return true; }
+// Bad
+if (condition === false) return false;</code></pre><ul>
+<li>Use single quotes as much as possible. Use double quotes within single quote for quoting inside a string. This is especially relevant for jQuery selectors.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>var string = 'I prefer single quotes';
+var quotes = 'I am a &quot;quote&quot; within a string';
+var $navContainer = $('.container[name$=&quot;nav&quot;]');</code></pre><ul>
+<li>Object keys shouldn't have quotes around them unless necessary.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>var obj = {
+    one: 'One',
+    't-w-o': 2
+};</code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Demandware, Inc.<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+</footer>
+
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

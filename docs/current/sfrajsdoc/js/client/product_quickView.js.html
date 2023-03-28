@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans::latin' ] }
+        };
+        (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFRA Server-side Javascript - Source: product/quickView.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/demandware-jsdoc.css">
+</head>
+
+<body>
+
+<svg display="none" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-menu" viewBox="0 0 1024 1024">
+    <title>menu</title>
+    <path class="path1" d="M64 192h896v192h-896zM64 448h896v192h-896zM64 704h896v192h-896z"></path>
+</symbol>
+</defs>
+</svg>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger menu-icon" />
+<label for="nav-trigger"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg></label>
+
+<div id="main">
+
+    <h2 class="page-title">
+        <a href="../../index.html">SFRA</a> /
+        <a href="index.html">Client-side JS</a> /
+        Source: product/quickView.js
+    </h2>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+var base = require('./base');
+var focusHelper = require('../components/focus');
+
+/**
+ * Generates the modal window on the first call.
+ *
+ */
+function getModalHtmlElement() {
+    if ($('#quickViewModal').length !== 0) {
+        $('#quickViewModal').remove();
+    }
+    var htmlString = '&lt;!-- Modal -->'
+        + '&lt;div class="modal fade" id="quickViewModal" role="dialog">'
+        + '&lt;span class="enter-message sr-only" >&lt;/span>'
+        + '&lt;div class="modal-dialog quick-view-dialog">'
+        + '&lt;!-- Modal content-->'
+        + '&lt;div class="modal-content">'
+        + '&lt;div class="modal-header">'
+        + '    &lt;a class="full-pdp-link" href="">&lt;/a>'
+        + '    &lt;button type="button" class="close pull-right" data-dismiss="modal">'
+        + '        &lt;span aria-hidden="true">&amp;times;&lt;/span>'
+        + '        &lt;span class="sr-only"> &lt;/span>'
+        + '    &lt;/button>'
+        + '&lt;/div>'
+        + '&lt;div class="modal-body">&lt;/div>'
+        + '&lt;div class="modal-footer">&lt;/div>'
+        + '&lt;/div>'
+        + '&lt;/div>'
+        + '&lt;/div>';
+    $('body').append(htmlString);
+}
+
+/**
+ * @typedef {Object} QuickViewHtml
+ * @property {string} body - Main Quick View body
+ * @property {string} footer - Quick View footer content
+ */
+
+/**
+ * Parse HTML code in Ajax response
+ *
+ * @param {string} html - Rendered HTML from quickview template
+ * @return {QuickViewHtml} - QuickView content components
+ */
+function parseHtml(html) {
+    var $html = $('&lt;div>').append($.parseHTML(html));
+
+    var body = $html.find('.product-quickview');
+    var footer = $html.find('.modal-footer').children();
+
+    return { body: body, footer: footer };
+}
+
+/**
+ * replaces the content in the modal window on for the selected product variation.
+ * @param {string} selectedValueUrl - url to be used to retrieve a new product model
+ */
+function fillModalElement(selectedValueUrl) {
+    $('.modal-body').spinner().start();
+    $.ajax({
+        url: selectedValueUrl,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var parsedHtml = parseHtml(data.renderedTemplate);
+
+            $('.modal-body').empty();
+            $('.modal-body').html(parsedHtml.body);
+            $('.modal-footer').html(parsedHtml.footer);
+            $('.full-pdp-link').text(data.quickViewFullDetailMsg);
+            $('#quickViewModal .full-pdp-link').attr('href', data.productUrl);
+            $('#quickViewModal .size-chart').attr('href', data.productUrl);
+            $('#quickViewModal .modal-header .close .sr-only').text(data.closeButtonText);
+            $('#quickViewModal .enter-message').text(data.enterDialogMessage);
+            $('#quickViewModal').modal('show');
+            $('body').trigger('quickview:ready');
+
+            $.spinner().stop();
+        },
+        error: function () {
+            $.spinner().stop();
+        }
+    });
+}
+
+module.exports = {
+    showQuickview: function () {
+        $('body').on('click', '.quickview', function (e) {
+            e.preventDefault();
+            var selectedValueUrl = $(this).closest('a.quickview').attr('href');
+            $(e.target).trigger('quickview:show');
+            getModalHtmlElement();
+            fillModalElement(selectedValueUrl);
+        });
+    },
+    focusQuickview: function () {
+        $('body').on('shown.bs.modal', '#quickViewModal', function () {
+            $('#quickViewModal .close').focus();
+        });
+    },
+    trapQuickviewFocus: function () {
+        $('body').on('keydown', '#quickViewModal', function (e) {
+            var focusParams = {
+                event: e,
+                containerSelector: '#quickViewModal',
+                firstElementSelector: '.full-pdp-link',
+                lastElementSelector: '.add-to-cart-global',
+                nextToLastElementSelector: '.modal-footer .quantity-select'
+            };
+            focusHelper.setTabNextFocus(focusParams);
+        });
+    },
+    availability: base.availability,
+    addToCart: base.addToCart,
+    showSpinner: function () {
+        $('body').on('product:beforeAddToCart', function (e, data) {
+            $(data).closest('.modal-content').spinner().start();
+        });
+    },
+    hideDialog: function () {
+        $('body').on('product:afterAddToCart', function () {
+            $('#quickViewModal').modal('hide');
+        });
+    },
+    beforeUpdateAttribute: function () {
+        $('body').on('product:beforeAttributeSelect', function () {
+            $('.modal.show .modal-content').spinner().start();
+        });
+    },
+    updateAttribute: function () {
+        $('body').on('product:afterAttributeSelect', function (e, response) {
+            if ($('.modal.show .product-quickview>.bundle-items').length) {
+                $('.modal.show').find(response.container).data('pid', response.data.product.id);
+                $('.modal.show').find(response.container)
+                    .find('.product-id').text(response.data.product.id);
+            } else if ($('.set-items').length) {
+                response.container.find('.product-id').text(response.data.product.id);
+            } else {
+                $('.modal.show .product-quickview').data('pid', response.data.product.id);
+                $('.modal.show .full-pdp-link')
+                    .attr('href', response.data.product.selectedProductUrl);
+            }
+        });
+    },
+    updateAddToCart: function () {
+        $('body').on('product:updateAddToCart', function (e, response) {
+            // update local add to cart (for sets)
+            $('button.add-to-cart', response.$productContainer).attr('disabled',
+                (!response.product.readyToOrder || !response.product.available));
+
+            // update global add to cart (single products, bundles)
+            var dialog = $(response.$productContainer)
+                .closest('.quick-view-dialog');
+
+            $('.add-to-cart-global', dialog).attr('disabled',
+                !$('.global-availability', dialog).data('ready-to-order')
+                || !$('.global-availability', dialog).data('available')
+            );
+        });
+    },
+    updateAvailability: function () {
+        $('body').on('product:updateAvailability', function (e, response) {
+            // bundle individual products
+            $('.product-availability', response.$productContainer)
+                .data('ready-to-order', response.product.readyToOrder)
+                .data('available', response.product.available)
+                .find('.availability-msg')
+                .empty()
+                .html(response.message);
+
+
+            var dialog = $(response.$productContainer)
+                .closest('.quick-view-dialog');
+
+            if ($('.product-availability', dialog).length) {
+                // bundle all products
+                var allAvailable = $('.product-availability', dialog).toArray()
+                    .every(function (item) { return $(item).data('available'); });
+
+                var allReady = $('.product-availability', dialog).toArray()
+                    .every(function (item) { return $(item).data('ready-to-order'); });
+
+                $('.global-availability', dialog)
+                    .data('ready-to-order', allReady)
+                    .data('available', allAvailable);
+
+                $('.global-availability .availability-msg', dialog).empty()
+                    .html(allReady ? response.message : response.resources.info_selectforstock);
+            } else {
+                // single product
+                $('.global-availability', dialog)
+                    .data('ready-to-order', response.product.readyToOrder)
+                    .data('available', response.product.available)
+                    .find('.availability-msg')
+                    .empty()
+                    .html(response.message);
+            }
+        });
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav id="navigation" class="navigation">
+    <div class="search"><input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations"></div>
+    <h2><a href="../../index.html">Home</a></h2><h3>Tutorials</h3><ul><li class="item" data-name="Controllers"><span class="expand">&nbsp;</span><a href="tutorial-Controllers.html">Controllers</a></li><li class="item" data-name="Payment"><span class="expand">&nbsp;</span><a href="tutorial-Payment.html">Payment processing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSpinner">addSpinner</a></li><li><a href="global.html#appendToUrl">appendToUrl</a></li><li><a href="global.html#applyModals">applyModals</a></li><li><a href="global.html#attributeSelect">attributeSelect</a></li><li><a href="global.html#chooseBonusProducts">chooseBonusProducts</a></li><li><a href="global.html#clearBillingAddressFormValues">clearBillingAddressFormValues</a></li><li><a href="global.html#clearCreditCardForm">clearCreditCardForm</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearFormErrors">clearFormErrors</a></li><li><a href="global.html#clearModals">clearModals</a></li><li><a href="global.html#clearPreviousErrors">clearPreviousErrors</a></li><li><a href="global.html#clearShippingForms">clearShippingForms</a></li><li><a href="global.html#confirmDelete">confirmDelete</a></li><li><a href="global.html#createCarousel">createCarousel</a></li><li><a href="global.html#createCategoryAnchor">createCategoryAnchor</a></li><li><a href="global.html#createErrorNotification">createErrorNotification</a></li><li><a href="global.html#createNewShipment">createNewShipment</a></li><li><a href="global.html#createProductAnchor">createProductAnchor</a></li><li><a href="global.html#displayMessage">displayMessage</a></li><li><a href="global.html#editMultiShipAddress">editMultiShipAddress</a></li><li><a href="global.html#editOrEnterMultiShipInfo">editOrEnterMultiShipInfo</a></li><li><a href="global.html#enterMultishipView">enterMultishipView</a></li><li><a href="global.html#fillDomElement">fillDomElement</a></li><li><a href="global.html#fillModalElement">fillModalElement</a></li><li><a href="global.html#findItem">findItem</a></li><li><a href="global.html#getAddressFieldsFromUI">getAddressFieldsFromUI</a></li><li><a href="global.html#getAddToCartUrl">getAddToCartUrl</a></li><li><a href="global.html#getAttributesHtml">getAttributesHtml</a></li><li><a href="global.html#getChildProducts">getChildProducts</a></li><li><a href="global.html#getContent">getContent</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getEinsteinUtils">getEinsteinUtils</a></li><li><a href="global.html#getModalHtmlElement">getModalHtmlElement</a></li><li><a href="global.html#getOptions">getOptions</a></li><li><a href="global.html#getPidValue">getPidValue</a></li><li><a href="global.html#getQuantitySelected">getQuantitySelected</a></li><li><a href="global.html#getQuantitySelector">getQuantitySelector</a></li><li><a href="global.html#getSuggestions">getSuggestions</a></li><li><a href="global.html#getSuggestionsWrapper">getSuggestionsWrapper</a></li><li><a href="global.html#handleArrow">handleArrow</a></li><li><a href="global.html#handleMoreContentBelowIcon">handleMoreContentBelowIcon</a></li><li><a href="global.html#handlePostCartAdd">handlePostCartAdd</a></li><li><a href="global.html#handleRefinements">handleRefinements</a></li><li><a href="global.html#handleVariantResponse">handleVariantResponse</a></li><li><a href="global.html#hiddenSlides">hiddenSlides</a></li><li><a href="global.html#isMobileSearch">isMobileSearch</a></li><li><a href="global.html#loadFormErrors">loadFormErrors</a></li><li><a href="global.html#loadRecommendations">loadRecommendations</a></li><li><a href="global.html#maps">maps</a></li><li><a href="global.html#miniCartReportingUrl">miniCartReportingUrl</a></li><li><a href="global.html#optionValueForAddress">optionValueForAddress</a></li><li><a href="global.html#parseHtml">parseHtml</a></li><li><a href="global.html#parseResults">parseResults</a></li><li><a href="global.html#populateAddressSummary">populateAddressSummary</a></li><li><a href="global.html#positionSuggestions">positionSuggestions</a></li><li><a href="global.html#processNonSwatchValues">processNonSwatchValues</a></li><li><a href="global.html#processRecommendationsTile">processRecommendationsTile</a></li><li><a href="global.html#processResponse">processResponse</a></li><li><a href="global.html#processSwatchValues">processSwatchValues</a></li><li><a href="global.html#removeSpinner">removeSpinner</a></li><li><a href="global.html#screenSize">screenSize</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#selectShippingMethodAjax">selectShippingMethodAjax</a></li><li><a href="global.html#shippingFormResponse">shippingFormResponse</a></li><li><a href="global.html#showConsentModal">showConsentModal</a></li><li><a href="global.html#showControls">showControls</a></li><li><a href="global.html#tearDownSuggestions">tearDownSuggestions</a></li><li><a href="global.html#toggleSuggestionsIcon">toggleSuggestionsIcon</a></li><li><a href="global.html#updateApproachingDiscounts">updateApproachingDiscounts</a></li><li><a href="global.html#updateAttrs">updateAttrs</a></li><li><a href="global.html#updateAvailability">updateAvailability</a></li><li><a href="global.html#updateBillingAddressFormValues">updateBillingAddressFormValues</a></li><li><a href="global.html#updateBillingAddressSelector">updateBillingAddressSelector</a></li><li><a href="global.html#updateBillingInformation">updateBillingInformation</a></li><li><a href="global.html#updateCartTotals">updateCartTotals</a></li><li><a href="global.html#updateDom">updateDom</a></li><li><a href="global.html#updateMultiShipInformation">updateMultiShipInformation</a></li><li><a href="global.html#updateOptions">updateOptions</a></li><li><a href="global.html#updateOrderProductSummaryInformation">updateOrderProductSummaryInformation</a></li><li><a href="global.html#updatePaymentInformation">updatePaymentInformation</a></li><li><a href="global.html#updatePLIShippingSummaryInformation">updatePLIShippingSummaryInformation</a></li><li><a href="global.html#updateProductDetails">updateProductDetails</a></li><li><a href="global.html#updateProductLineItemShipmentUUIDs">updateProductLineItemShipmentUUIDs</a></li><li><a href="global.html#updateQuantities">updateQuantities</a></li><li><a href="global.html#updateShippingAddressFormValues">updateShippingAddressFormValues</a></li><li><a href="global.html#updateShippingAddressSelector">updateShippingAddressSelector</a></li><li><a href="global.html#updateShippingInformation">updateShippingInformation</a></li><li><a href="global.html#updateShippingMethodList">updateShippingMethodList</a></li><li><a href="global.html#updateShippingMethods">updateShippingMethods</a></li><li><a href="global.html#updateShippingSummaryInformation">updateShippingSummaryInformation</a></li><li><a href="global.html#updateSortOptions">updateSortOptions</a></li><li><a href="global.html#updateStoresResults">updateStoresResults</a></li><li><a href="global.html#updateTotals">updateTotals</a></li><li><a href="global.html#validateBasket">validateBasket</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#viewMultishipAddress">viewMultishipAddress</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    &copy; <span class="year"></span> Salesforce Commerce Cloud<br/>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+</footer>
+
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/main.js"></script>
+<script>
+    prettyPrint();
+    document.querySelector('.year').innerHTML = new Date().getFullYear();
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
