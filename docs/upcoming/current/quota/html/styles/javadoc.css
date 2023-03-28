@@ -1,0 +1,443 @@
+@import url(//fonts.googleapis.com/css?family=Salesforce+Sans:400,400italic,bold,bolditalic);
+body {
+	font-family: "Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-size: .8em;
+	line-height:1.5em;
+
+}
+
+.className,h1 {
+	/* top right bottom left */
+	margin: 10px 0px 0px 0px;
+	font-size: 1.5em;
+	font-weight: bold;
+
+}
+
+.classSummary {
+	margin: 10px 2px 2px 0px;
+}
+
+.classSummaryDetail {
+	margin: 4px 0px 0px 0px;
+}
+
+.dep {
+	text-decoration: line-through;
+}
+
+.description {
+
+	/* top right bottom left */
+	margin: 8px 0px 4px 20px;
+
+}
+
+.detailItem {
+	/* top right bottom left */
+	/* margin: 4px 4px 4px 4px; */
+	padding: 1em;
+	background: #FFFFFF;
+	font-size: 1em;
+	border:dotted;
+	border-width:1;
+	border-color:gray;
+	border-top:none;
+}
+
+.detailName {
+
+	/* top right bottom left */
+	margin: 4px 4px 10px 0px;
+	font-weight: bold;
+	/* font-style:oblique; */
+	font-size: 1em;
+	line-height:1.5em;
+
+}
+
+.detailSignature {
+	/* top right bottom left */
+	margin: 0px 4px 4px 0px;
+	font-family: "Courier New";
+	font-size: 1em;
+	line-height:100%;
+}
+
+.classSection {
+	/* top right bottom left */
+	margin: 4px 10px 0px 20px;
+}
+
+.emphasis {
+	font-weight: bold;
+}
+
+.banner {
+	/* top right bottom left */
+	margin: 10px 10px 10px 10px;
+	/* background: #EEEEFF; */
+}
+.bannerItem {
+	float: left;
+/*	background: #EEEEFF;  */
+	margin: 0.25rem 0.25rem 0.25rem 0.25rem;
+	color: gray;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+}
+
+.bannerItem a {
+
+	/* font-weight: bold; */
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	text-decoration : underline;
+}
+
+.header {
+
+	padding: 6px;
+	background: #CCCCCC;
+	/* font-weight: bold; */
+	font-size: 1.2em;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	border:none;
+	border-width:1;
+	border-color:#1798c1;
+	;
+	color:white;
+	background-color:#1798c1;
+}
+
+.classHeader {
+
+	padding: 4px;
+	background: #CCCEFF;
+	/* font-weight: bold; */
+	font-size: 1.2em;
+
+	border:none;
+	border-width:1;
+	border-color:gray;
+}
+
+.subHeader {
+
+	padding: 4px;
+/*	background: #EEEEFF; */
+	font-weight: bold;
+	font-size: 1em;
+	border:none;
+	border-width:1;
+	border-color:gray;
+	color:black;
+	background-color:rgb(222, 222, 222);
+}
+
+.hierarchy {
+	margin: 10px 2px 2px 4px;
+}
+
+.packageName:before {
+	content: "Package ";
+}
+.packageName {
+	padding: 6px;
+	font-size: 1.2em;
+	/* font-weight: bold; */
+	background-color:#1798c1;
+	;
+	color:white;
+}
+
+.parameters {
+
+	/* top right bottom left */
+	margin: 4px 4px 4px 20px;
+
+}
+
+.parameterDetail {
+	/* top right bottom left */
+	margin: 4px 4px 4px 40px;
+}
+
+.parameterName {
+
+	font-family: "Courier New";
+	font-size: 1em;
+}
+
+.parameterTitle {
+
+	font-weight: bold;
+}
+
+.section {
+	/* top right bottom left */
+	margin: 25px 0px 0px 0px;
+}
+
+.summaryItem {
+
+	padding: 1em;
+	background: #FFFFFF;
+	font-size: 1em;
+	border:dotted;
+	border-width:1;
+	border-color:gray;
+	border-top:none;
+}
+
+<!-- styles used in packageList.html -->
+
+.title {
+	margin: 22px 4px 4px 4px;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-weight:bold;
+}
+
+.allClasses {
+	margin: 8px 4px 4px 4px;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-size:1em;
+}
+
+.packageTitle {
+	margin: 20px 4px 4px 4px;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-size:1em;
+}
+
+.packagesName {
+	margin: 4px 4px 4px 4px;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-size:1em;
+}
+
+.classTitle {
+	margin: 15px 4px 4px 4px;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-size:1em;
+	font-weight:bold;
+}
+
+.classesName {
+	margin: 0px 0px 0px 4px;
+	font-family:"Salesforce Sans", Helvetica, Arial, sans-serif;
+	font-size:1em;
+}
+
+.packageGroup {
+	font-size:1em;
+	font-weight:bold;
+	margin: 4px 0px 10px 0px;
+}
+
+.packageClass {
+
+}
+
+.packageHeader {
+	font-size: 2.0em;
+
+}
+
+.pipeletDesc {
+	font-size:1.0em;
+	font-weight:normal;
+	margin: 1em 1em 1em 1em;
+}
+
+.outer {
+	margin: 0% 0% 0% 0%;
+	height:auto;
+}
+
+
+.left {
+		float:left;
+		width:35%;
+		height:auto;
+		padding: 4px;
+		border:none;
+		border-width:1;
+		border-color:gray;
+		border-top:none;
+		background: #FFFFFF;
+	}
+
+.body {
+		float:left;
+		width:65%;
+		height:auto;
+		padding: 4px;
+		border:none;
+		border-width:1;
+		border-color:gray;
+		border-top:none;
+		border-left:none;
+	}
+
+.indexSection {
+	margin: 22px 22px 22px 22px;
+	font-family:sans-serif;
+	font-weight:bold;
+}
+
+.alignRight {
+  float: right;
+}
+.alignLeft {
+   float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+table {border-collapse:collapse; width:100%;}
+table td {border:1px solid #CCCCCC; padding: 4px; font-size: 13px;}
+table td.summary {width:75%;}
+thead td {background: #C0C0C0; }
+table td.behavior {width:40%;}
+.newTitle {
+	font-size:1em;
+	font-weight:bold;
+}
+.relation {
+	font-size:1em;
+	font-weight:bold;
+}
+.help_breadcrumbs,
+.help_breadcrumbs a {
+    color: #1589ee;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 0 0 12px;
+    text-decoration: none;
+}
+.help_breadcrumbs a:hover { text-decoration: underline }
+
+pre {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #999999;
+    color: #000000;
+    font-family: "Courier New", Courier, "Lucida Console", Monaco, monospace;
+    /* font-weight: bold; */
+    margin: 8px;
+    padding: 8px;
+	overflow-x: auto;
+}
+code {
+	font-family: "Courier New";
+	font-size: 1em;
+	overflow: auto;
+}
+hr {
+	visibility: collapse;
+}
+
+table {
+    border-collapse: collapse;
+    background: none 0px 0px repeat scroll rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(230, 230, 230);
+    border-image: initial;
+    padding: 1em;
+}
+
+th {
+    background: url(../com.demandware.standard.infocenter/doc/icon_note.png) no-repeat scroll 6px 9px #efefef;
+    color: #4F5762;
+    font-size: .9em;
+    font-weight: bold;
+    /* padding: 10px 3px 8px 5px; */
+    padding: .5em;
+}
+
+div.className + div.topLevelDescription {
+	margin:1em 1em 1em 1em;
+} 
+
+div.topLevelDescription {
+	margin-left: 1em;
+} 
+
+div.copyright, p.copyright_footer {
+	margin:1em 1em 1em 1em;
+	font-style: italic;
+}
+#cookieConsent {
+    background-color: rgba(20,20,20,0.8);
+    min-height: 26px;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 26px;
+    padding: 8px 0 8px 30px;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 9999;
+}
+#cookieConsent a {
+    color: #4B8EE7;
+    text-decoration: none;
+}
+#closeCookieConsent {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin: -15px 0 0 0;
+    font-weight: bold;
+}
+#ocapiDeprecationBanner {
+    background-color: #0747a6;
+    min-height: 26px;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 26px;
+    padding: 8px 0 8px 30px;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 9999;
+}
+#ocapiDeprecationBanner a {
+    color: #4B8EE7;
+    text-decoration: none;
+}
+#closeDeprecationBanner {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin: -15px 0 0 0;
+    font-weight: bold;
+}
+
+#closeCookieConsent:hover {
+    color: #FFF;
+}
+#cookieConsent a.cookieConsentOK {
+    background-color: #F1D600;
+    color: #000;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 0 20px;
+    cursor: pointer;
+    float: right;
+    margin: 0 60px 0 10px;
+}
+#cookieConsent a.cookieConsentOK:hover {
+    background-color: #E0C91F;
+}
