@@ -1,3 +1,7 @@
+---
+layout: docs
+title: 'SiteGenesis Server-side Javascript - Source: app_storefront_controllers/cartridge/scripts/models/ProductModel.js'
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -263,7 +267,7 @@ var ProductModel = AbstractModel.extend(
          *
          * @alias module:models/ProductModel~ProductModel/getAvailability
          * @param quantity {String} the quantity. Usually, this is the amount the customer has selected to purchase.
-         * @returns {{status: *, statusQuantity: number, inStock: *, ats: number, inStockDate: string, availableForSale: boolean, levels: {}}}
+         * @returns {status: *, statusQuantity: number, inStock: *, ats: number, inStockDate: string, availableForSale: boolean, levels: {}}
          */
         getAvailability: function (quantity) {
             var qty = isNaN(quantity) ? 1 : parseInt(quantity).toFixed();
