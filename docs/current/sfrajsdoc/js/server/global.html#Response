@@ -123,7 +123,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
 
 
             
@@ -371,7 +371,7 @@
 
     
 
-    <h4 class="name" id="getViewData"><span class="type-signature"></span>getViewData<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a>}</span></h4>
+    <h4 class="name" id="getViewData"><span class="type-signature"></span>getViewData<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a>}</span></h4>
 
     
 
@@ -460,7 +460,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
 
 
     </dd>
@@ -524,7 +524,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
 
 
             
@@ -673,7 +673,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Array.html">Array</a>.&lt;string></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Array.html">Array</a>.&lt;string></span>
 
 
             
@@ -845,7 +845,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
 
 
             
@@ -868,7 +868,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_dw_util_HashMap.html">dw.util.HashMap</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_dw_util_HashMap.html">dw.util.HashMap</a></span>
 
 
             
@@ -1338,7 +1338,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
 
 
             
@@ -2106,7 +2106,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="https://documentation.demandware.com/DOC2/topic/com.demandware.dochelp/DWAPI/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
+<span class="param-type"><a href="{{ site.baseurl }}/docs/current/scriptapi/html/api/class_TopLevel_Object.html">Object</a></span>
 
 
             
