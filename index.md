@@ -25,7 +25,3 @@ title: Salesforce B2C Developer Documentation Resources
 * [API and Object Quotas](docs/upcoming/quota/html/index.html)
 * [B2C Commerce Import and Export Schemas](docs/upcoming/xsd/index.html)
 * [B2C Commerce Content JSON Schemas](docs/upcoming/content/index.html)
-
-# Test
-
-* [Links](docs/links.html)
