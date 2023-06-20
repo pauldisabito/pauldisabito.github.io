@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function() {
       data.forEach(function(page) {
         index.add(page);
       });
+    })
+    .catch(function(error) {
+      console.log("Error fetching search data:", error);
     });
 
   // Get references to the search input and search results elements
