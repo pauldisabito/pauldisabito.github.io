@@ -1,3 +1,6 @@
+---
+layout: docs
+---
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
 <head>
@@ -13,25 +16,12 @@
   {% include head-custom.html %}
 </head>
 <body>
-  <header class="page-header" role="banner">
-    <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
-    <div id="homeLink"><a style="color:#ffffff" target="_top" href="{{ site.url }}">Home</a></div>
-
-    <!-- Add the search field and button to the search results page as well -->
-    <form id="search-form" action="/search.html" method="GET">
-      <input type="text" id="search-input" name="query" placeholder="Search...">
-      <button type="submit">Search</button>
-    </form>
-  </header>
 
   <main id="content" class="main-content" role="main">
     <!-- Display the search results here -->
     <h2>Search Results</h2>
     <div id="search-results"></div>
   </main>
-
-  <footer class="site-footer"><span class="site-footer-credits">© 2023 salesforce.com, inc. All rights reserved.</span>
-  </footer>
 
   <!-- Include the Lunr library and the search script -->
   <script src="{{ '/assets/js/lunr.js' | relative_url }}"></script>
