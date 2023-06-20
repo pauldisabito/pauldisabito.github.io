@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+<head>
+  <meta charset="UTF-8">
+
+  {% seo %}
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  {% include head-custom.html %}
+</head>
+<body>
+  <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+  <header class="page-header" role="banner">
+    <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
+    <div id="homeLink"><a style="color:#ffffff" target="_top" href="{{ site.url }}">Home</a></div>
+
+    <!-- Add the search field and button to the search results page as well -->
+    <form id="search-form" action="/search.html" method="GET">
+      <input type="text" id="search-input" name="query" placeholder="Search...">
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+  <main id="content" class="main-content" role="main">
+    <!-- Display the search results here -->
+    <h2>Search Results</h2>
+    <div id="search-results"></div>
+  </main>
+
+  <footer class="site-footer">
+    {% if site.github.is_project_page %}
+      <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+    {% endif %}
+    <span class="site-footer-credits">© 2023 salesforce.com, inc. All rights reserved.</span>
+  </footer>
+
+  <!-- Include the Lunr library and the search script -->
+  <script src="{{ '/assets/js/lunr.min.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+</body>
+</html>
