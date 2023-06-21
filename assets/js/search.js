@@ -7,24 +7,26 @@ document.addEventListener("DOMContentLoaded", function() {
     this.field("tags");
     this.field("content");
     this.ref("url");
-  });
 
-  // Fetch the search data from the search.json file
-  fetch("../../search.json")
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      // Add the data to the search index
-      data.forEach(function(page) {
-        if (Object.keys(page).length > 0) {
-        index.add(page);
-      }
+    var lunrIndex = this; // Reference to the Lunr index object
+
+    // Fetch the search data from the search.json file
+    fetch("../../search.json")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        // Add the data to the search index
+        data.forEach(function(page) {
+          if (Object.keys(page).length > 0) {
+            lunrIndex.add(page);
+          }
+        });
+      })
+      .catch(function(error) {
+        console.log("Error fetching search data:", error);
+      });
   });
-    })
-    .catch(function(error) {
-      console.log("Error fetching search data:", error);
-    });
 
   // Get references to the search input and search results elements
   var searchInput = document.getElementById("search-input");
