@@ -38,9 +38,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var query = searchInput.value.trim(); // Get the search query
 
+  // Perform the search when the user submits the form
+  document.getElementById("search-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    var query = searchInput.value.trim(); // Get the search query
+
+    console.log("Search Query:", query); // Print the search query
+
     // Perform the search using Lunr.js
     var results = index.search(function (query) {
-      console.log("Search Query:", query.term);
       query.term(query.term, {
         fields: ["title", "category", "tags", "content"],
         boost: 10
@@ -49,6 +56,11 @@ document.addEventListener("DOMContentLoaded", function() {
         fields: ["title", "category", "tags", "content"]
       });
     });
+
+    // Display the search results
+    // Rest of your code...
+  });
+
 
 
     // Display the search results
