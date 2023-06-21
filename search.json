@@ -5,12 +5,12 @@ layout: none
   {% for page in site.pages %}
    {
      {% if page.title != nil %}
-        "title"    : "{{ page.title | lstrip | rstrip | escape | jsonify }}",
-        "category" : "{{ page.category | lstrip | rstrip | escape | jsonify }}",
+        "title"    : "{{ page.title | lstrip | rstrip | escape }}",
+        "category" : "{{ page.category | lstrip | rstrip | escape }}",
         "tags"     : "{{ page.tags | join: ', ' }}",
         "url"      : "{{ site.baseurl }}{{ page.url }}",
         "date"     : "{{ page.date }}",
-        "content"  : "{{ page.content | strip_html | normalize_whitespace | strip_html | normalize_whitespace | lstrip | rstrip | escape | jsonify }}"
+        "content"  : "{{ page.content | strip_html | normalize_whitespace | strip_html | normalize_whitespace | lstrip | rstrip | escape  }}"
      {% endif %}
    } {% unless forloop.last %},{% endunless %}
   {% endfor %}
