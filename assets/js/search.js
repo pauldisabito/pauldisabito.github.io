@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Fetch the search data from the search.json file
-  fetch("/search.json")
+  fetch("../../search.json")
     .then(function(response) {
       return response.json();
     })
