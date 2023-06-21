@@ -5,7 +5,7 @@ layout: none
   {% for page in site.pages %}
    {
      {% if page.title != nil %}
-        "title"    : "{{ page.title | escape }}",
+        "title"    : "{{ page.title | lstrip | rstrip | escape }}",
         "category" : "{{ page.category }}",
         "tags"     : "{{ page.tags | join: ', ' }}",
         "url"      : "{{ site.baseurl }}{{ page.url }}",
