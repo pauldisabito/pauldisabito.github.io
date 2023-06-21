@@ -39,7 +39,16 @@ document.addEventListener("DOMContentLoaded", function() {
     var query = searchInput.value.trim(); // Get the search query
 
     // Perform the search using Lunr.js
-    var results = index.search(query);
+    
+    var results = index.search(function (query) {
+      query.term(query.term, {
+        fields: ["title", "category", "tags", "content"],
+        boost: 10
+      });
+      query.term(query.term, {
+        fields: ["title", "category", "tags", "content"]
+      });
+    });
 
     // Display the search results
     searchResults.innerHTML = ""; // Clear previous results
