@@ -17,8 +17,10 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(function(data) {
       // Add the data to the search index
       data.forEach(function(page) {
+        if (Object.keys(page).length > 0) {
         index.add(page);
-      });
+      }
+  });
     })
     .catch(function(error) {
       console.log("Error fetching search data:", error);
