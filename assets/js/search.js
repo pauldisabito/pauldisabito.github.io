@@ -48,8 +48,6 @@ document.addEventListener("DOMContentLoaded", function() {
           query.term(queryTerms, {
             fields: {
               title: { boost: 10 },
-              category: { boost: 1 },
-              tags: { boost: 1 },
               content: { boost: 1 }
             }
           });
