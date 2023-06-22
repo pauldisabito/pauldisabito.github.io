@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
           if (Object.keys(page).length > 0) {
             lunrIndex.add(page);
             console.log("Indexed page:", page); // Log the indexed page object
-  }
           }
         });
       })
