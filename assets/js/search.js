@@ -40,19 +40,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log("Search Query:", query); // Print the search query
 
-    // Perform the search using Lunr.js
-    try {
-      var searchTerms = query; // Store the search terms separately
+      // Perform the search using Lunr.js
+      try {
+        var queryTerms = searchInput.value.trim(); // Get the search query terms
 
-      var results = index.search(function(query) {
-        query.term(searchTerms, { // Use the separate search terms
-          fields: ["title", "category", "tags", "content"],
-          boost: 10
+        var results = index.search(function(query) {
+          query.term(queryTerms, {
+            fields: {
+              title: { boost: 10 },
+              category: { boost: 1 },
+              tags: { boost: 1 },
+              content: { boost: 1 }
+            }
+          });
         });
-        query.term(searchTerms, { // Use the separate search terms
-          fields: ["title", "category", "tags", "content"]
-        });
-      });
 
       // Display the search results
       searchResults.innerHTML = ""; // Clear previous results
