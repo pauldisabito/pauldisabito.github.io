@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // Initialize Lunr.js and create a search index
   var index = lunr(function() {
     this.field("title");
-    this.field("category");
-    this.field("tags");
     this.field("content");
     this.ref("url");
 
