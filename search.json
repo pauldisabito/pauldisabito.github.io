@@ -6,10 +6,7 @@ layout: none
    {
      {% if page.title != nil %}
         "title"    : "{{ page.title | lstrip | rstrip | escape }}",
-        "category" : "{{ page.category | lstrip | rstrip | escape }}",
-        "tags"     : "{{ page.tags | join: ', ' }}",
         "url"      : "{{ site.baseurl }}{{ page.url }}",
-        "date"     : "{{ page.date }}",
         "content"  : "{{ page.content | strip_html | normalize_whitespace | lstrip | rstrip | remove: ">" | remove: '"' | replace: "\", "BBACKSPACCE" | replace: "BBACKSPACCE", "\\\\" }}"
      {% endif %}
    } {% unless forloop.last %},{% endunless %}
