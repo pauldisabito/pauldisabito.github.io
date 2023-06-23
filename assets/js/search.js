@@ -41,16 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Perform the search using Lunr.js
         try {
-            var results = index.search(query, {
-                fields: {
-                    title: {
-                        boost: 10
-                    },
-                    content: {
-                        boost: 1
-                    }
-                }
-            });
+            var results = index.search(query);
 
             console.log("Here is the index:", index);
 
