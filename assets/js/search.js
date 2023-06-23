@@ -21,12 +21,20 @@ document.addEventListener("DOMContentLoaded", function() {
                         // console.log("Indexed page:", page); // Log the indexed page object
                     }
                 });
+
+                console.log("Here is the populated index:", index);
             })
             .catch(function(error) {
                 console.log("Error fetching search data:", error);
             });
-        console.log("Here is the populated index:", index);
     });
+});
+
+
+
+
+
+
 
     // Get references to the search input and search results elements
     var searchInput = document.getElementById("search-input");
