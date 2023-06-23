@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(function(error) {
                 console.log("Error fetching search data:", error);
             });
+        console.log("Here is the populated index:", index);
     });
 
     // Get references to the search input and search results elements
