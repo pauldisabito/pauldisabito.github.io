@@ -1985,7 +1985,12 @@ lunr.Index.prototype.query = function (fn) {
     queryVectors[this.fields[i]] = new lunr.Vector
   }
 
-  fn.call(query, query)
+  console.log("Inverted Index:", this.invertedIndex);
+  console.log("Field Vectors:", this.fieldVectors);
+
+  fn.call(query, query);
+
+  console.log("Query Clauses:", query.clauses);
 
   for (var i = 0; i < query.clauses.length; i++) {
     /*
