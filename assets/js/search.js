@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
 
+            console.log("Here are the search results:", results);
+
             // Display the search results
             searchResults.innerHTML = ""; // Clear previous results
 
