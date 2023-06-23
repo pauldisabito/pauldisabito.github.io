@@ -35,13 +35,13 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("search-form").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
 
-        var query = searchInput.value.trim(); // Get the search query
+        //var query = searchInput.value.trim(); // Get the search query
 
-        console.log("Search Query:", query); // Print the search query
+        //console.log("Search Query:", query); // Print the search query
 
         // Perform the search using Lunr.js
         try {
-            var results = index.search(query);
+            var results = index.search("accept");
 
             console.log("Here is the index:", index);
 
