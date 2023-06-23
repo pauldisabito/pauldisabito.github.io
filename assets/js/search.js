@@ -35,13 +35,13 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("search-form").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
 
-        //var query = searchInput.value.trim(); // Get the search query
+        var searchquery = searchInput.value.trim(); // Get the search query
 
-        //console.log("Search Query:", query); // Print the search query
+        console.log("Search Query:", searchquery); // Print the search query
 
         // Perform the search using Lunr.js
         try {
-            var results = index.search("accept");
+            var results = index.search(searchquery);
 
             console.log("Here is the index:", index);
 
@@ -54,13 +54,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Loop through the search results and display them
                 for (var i = 0; i < results.length; i++) {
                     var result = results[i];
-                    var page = result.ref;
-                    var title = result.doc.title;
+                    var resultpage = result.ref;
+                    var resulttitle = result.doc.title;
 
                     // Create a link to the search result page
                     var link = document.createElement("a");
-                    link.href = page;
-                    link.textContent = title;
+                    link.href = resultpage;
+                    link.textContent = resulttitle;
 
                     // Append the link to the search results element
                     searchResults.appendChild(link);

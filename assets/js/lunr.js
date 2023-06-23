@@ -1926,6 +1926,7 @@ lunr.Index = function (attrs) {
  * @returns {lunr.Index~Result[]}
  */
 lunr.Index.prototype.search = function (queryString) {
+  console.log("You made it into lunr.Index.prototype.search");
   return this.query(function (query) {
     var parser = new lunr.QueryParser(queryString, query)
     parser.parse()
