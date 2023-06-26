@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 
+  console.log("This is the idx object after config function:", idx);
+
   // Perform the search when the user submits the form
   document.getElementById("search-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent form submission
