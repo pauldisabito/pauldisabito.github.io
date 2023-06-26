@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", function() {
       this.field('title');
       this.field('content');
       this.ref('url');
-      resolve(idx); // Resolve the Promise with the index object
     });
+
+    resolve(idx); // Resolve the Promise with the index object
   });
 
   // Fetch the search data from the search.json file
