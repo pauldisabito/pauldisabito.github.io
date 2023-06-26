@@ -1,26 +1,28 @@
 // Wait for the DOM to be ready
-document.addEventListener("DOMContentLoaded", async function() {
-  // Initialize Lunr.js and create an empty search index
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize Lunr.js and create a search index
   var idx = lunr(function() {
     this.field('title');
     this.field('content');
     this.ref('url');
-  });
 
-  try {
     // Fetch the search data from the search.json file
-    var response = await fetch("../../search.json");
-    var data = await response.json();
-
-    // Add the data to the search index
-    data.forEach(function(page) {
-      if (Object.keys(page).length > 0) {
-        idx.add(page);
-      }
-    });
-  } catch (error) {
-    console.log("Error fetching search data:", error);
-  }
+    fetch("../../search.json")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        // Add the data to the search index
+        data.forEach(function(page) {
+          if (Object.keys(page).length > 0) {
+            this.add(page);
+          }
+        }, this); // Pass 'this' as the context to maintain the correct reference to the Lunr.js builder object
+      })
+      .catch(function(error) {
+        console.log("Error fetching search data:", error);
+      });
+  });
 
   // Perform the search when the user submits the form
   document.getElementById("search-form").addEventListener("submit", function(event) {
