@@ -2,6 +2,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Initialize Lunr.js and create a search index
   var idx = lunr(function() {
+    var lunrBuilder = this; // Store the reference to the Lunr.js builder object
+
     this.field('title');
     this.field('content');
     this.ref('url');
@@ -15,9 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Add the data to the search index
         data.forEach(function(page) {
           if (Object.keys(page).length > 0) {
-            this.add(page);
+            lunrBuilder.add(page); // Use the stored reference to the Lunr.js builder object
           }
-        }, this); // Pass 'this' as the context to maintain the correct reference to the Lunr.js builder object
+        });
       })
       .catch(function(error) {
         console.log("Error fetching search data:", error);
