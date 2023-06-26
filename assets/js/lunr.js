@@ -1929,6 +1929,7 @@ lunr.Index.prototype.search = function (queryString) {
   console.log("You made it into lunr.Index.prototype.search");
   console.log("Inside lunr.Index.prototype.search, this is what queryString resolves to: ", queryString);
   var tempResult = this.query(function (query) {
+    console.log("Inside lunr.Index.prototype.search, this is what the query var resolves to: ", query);
     var parser = new lunr.QueryParser(queryString, query);
     parser.parse();
     console.log(parser);
