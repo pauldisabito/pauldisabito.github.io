@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
       this.field('title');
       this.field('content');
       this.ref('url');
-      resolve(this); // Resolve the Promise with the index
+      resolve(idx); // Resolve the Promise with the index object
     });
   });
 
