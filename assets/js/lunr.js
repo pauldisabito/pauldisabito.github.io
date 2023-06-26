@@ -1927,12 +1927,13 @@ lunr.Index = function (attrs) {
  */
 lunr.Index.prototype.search = function (queryString) {
   console.log("You made it into lunr.Index.prototype.search");
+  console.log("Inside lunr.Index.prototype.search, this is what queryString resolves to: ", queryString);
   var tempResult = this.query(function (query) {
     var parser = new lunr.QueryParser(queryString, query);
     parser.parse();
     console.log(parser);
   });
-  console.log(tempResult);
+  console.log("Inside lunr.Index.prototype.search, this is what tempResult resolves to: ", tempResult);
   return tempResult;
 };
 
