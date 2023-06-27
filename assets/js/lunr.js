@@ -1925,18 +1925,13 @@ lunr.Index = function (attrs) {
  * @throws {lunr.QueryParseError} If the passed query string cannot be parsed.
  * @returns {lunr.Index~Result[]}
  */
-lunr.Index.prototype.search = function (queryString) {
-  console.log("You made it into lunr.Index.prototype.search");
-  console.log("Inside lunr.Index.prototype.search, this is what queryString resolves to: ", queryString);
-  var tempResult = this.query(function (query) {
-    console.log("Inside lunr.Index.prototype.search, this is what the query var resolves to: ", query);
-    var parser = new lunr.QueryParser(queryString, query);
-    parser.parse();
-    console.log(parser);
-  });
-  console.log("Inside lunr.Index.prototype.search, this is what tempResult resolves to: ", tempResult);
-  return tempResult;
-};
+ lunr.Index.prototype.search = function (queryString) {
+  return this.query(function (query) {
+    var parser = new lunr.QueryParser(queryString, query)
+    parser.parse()
+  })
+}
+
 
 /**
  * A query builder callback provides a query object to be used to express
