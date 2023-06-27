@@ -1,37 +1,10 @@
 // Wait for the DOM to be ready
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize Lunr.js and create a search index
-    var idx = lunr(function() {
-        var lunrBuilder = this; // Store the reference to the Lunr.js builder object
+    var idx; // Declare idx variable in the outer scope
 
-        this.field('title');
-        this.field('content');
-        this.ref('url');
-
-        // Fetch the search data from the search.json file
-        fetch("../../search.json")
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                // Add the data to the search index
-                data.forEach(function(page) {
-                    if (page.url && page.title && page.content) {
-                        lunrBuilder.add(page); // Use the stored reference to the Lunr.js builder object
-                    }
-                });
-            })
-            .catch(function(error) {
-                console.log("Error fetching search data:", error);
-            });
-    });
-
-    console.log("This is the idx object after config function:", idx);
-
-    // Perform the search when the user submits the form
-    document.getElementById("search-form").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
-
+    // Function to perform search using the built index
+    function performSearch() {
         var searchInput = document.getElementById("search-input");
         var searchResults = document.getElementById("search-results");
 
@@ -68,5 +41,47 @@ document.addEventListener("DOMContentLoaded", function() {
             message.textContent = "No results found.";
             searchResults.appendChild(message);
         }
+    }
+
+    // Fetch the search data and build the index
+    fetch("../../search.json")
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            // Initialize Lunr.js and create the search index
+            idx = lunr(function() {
+                var lunrBuilder = this; // Store the reference to the Lunr.js builder object
+
+                this.field('title');
+                this.field('content');
+                this.ref('url');
+
+                // Add the data to the search index
+                data.forEach(function(page) {
+                    if (page.url && page.title && page.content) {
+                        lunrBuilder.add(page); // Use the stored reference to the Lunr.js builder object
+                    }
+                });
+
+                // Perform search after the index is fully built
+                performSearch();
+            });
+        })
+        .catch(function(error) {
+            console.log("Error fetching/searching data:", error);
+        });
+
+    console.log("This is the idx object after config function:", idx);
+
+    // Perform the search when the user submits the form
+    document.getElementById("search-form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Call performSearch function
+        performSearch();
     });
 });
