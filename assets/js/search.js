@@ -1,35 +1,42 @@
 // Wait for the DOM to be ready
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  (async function () {
+    var idx;
+    var data;
+
+    // Declare pageData here to store the pages' data
+    var pageData = {};
+
+    try {
+      // Fetch the search data from the search.json file
+      var response = await fetch("../../search.json");
+      data = await response.json();
+    } catch (error) {
+      console.log("Error fetching search data:", error);
+    }
+
     // Initialize Lunr.js and create a search index
-    var idx = lunr(function() {
-        var lunrBuilder = this; // Store the reference to the Lunr.js builder object
+    idx = lunr(function () {
+      this.field("title");
+      this.field("content");
+      this.ref("url");
 
-        this.field('title');
-        this.field('content');
-        this.ref('url');
-
-        // Fetch the search data from the search.json file
-        fetch("../../search.json")
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                // Add the data to the search index
-                data.forEach(function(page) {
-                    if (page.url && page.title && page.content) {
-                        lunrBuilder.add(page); // Use the stored reference to the Lunr.js builder object
-                    }
-                });
-            })
-            .catch(function(error) {
-                console.log("Error fetching search data:", error);
-            });
+      // Add the data to the search index
+      data.forEach(function (page) {
+        if (page.url && page.title && page.content) {
+          this.add(page);
+          // Store the page data for later use
+          pageData[page.url] = page;
+        }
+      }, this);
     });
 
     console.log("This is the idx object after config function:", idx);
 
     // Perform the search when the user submits the form
-    document.getElementById("search-form").addEventListener("submit", function(event) {
+    document
+      .getElementById("search-form")
+      .addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent form submission
 
         var searchInput = document.getElementById("search-input");
@@ -39,34 +46,44 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Search Query:", searchQuery); // Print the search query
 
-        // Perform the search using Lunr.js
-        var results = idx.search(searchQuery);
+        // Clear the search results
+        searchResults.innerHTML = "";
 
-        console.log("Here are the search results:", results);
+        if (searchQuery) {
+          // Display the search term
+          searchResults.innerHTML =
+            "<p>Search results for '" + searchQuery + "':</p>";
 
-        // Display the search results
-        searchResults.innerHTML = ""; // Clear previous results
+          // Perform the search using Lunr.js
+          var results = idx.search(searchQuery);
 
-        if (results.length > 0) {
+          if (results.length > 0) {
             // Loop through the search results and display them
             for (var i = 0; i < results.length; i++) {
-                var result = results[i];
-                var resultPage = result.ref;
-                var resultTitle = result.doc.title;
+              var result = results[i];
+              var resultPage = pageData[result.ref]; // Look up the page data
+              var url = resultPage.url;
+              var title = resultPage.title;
+              var content = resultPage.content.substring(0, 160) + "...";
 
-                // Create a link to the search result page
-                var link = document.createElement("a");
-                link.href = resultPage;
-                link.textContent = resultTitle;
-
-                // Append the link to the search results element
-                searchResults.appendChild(link);
+              // Append the search result as a new paragraph
+              searchResults.innerHTML +=
+                "<p class='search-result'><a href='" +
+                url +
+                "'><span class='title'>" +
+                title +
+                "</span><br /><span class='content'>" +
+                content +
+                "</span><br /><span class='url'>" +
+                url +
+                "</span></a></p>";
             }
-        } else {
+          } else {
             // Display a message if no results were found
-            var message = document.createElement("p");
-            message.textContent = "No results found.";
-            searchResults.appendChild(message);
+            searchResults.innerHTML +=
+              "<p class='search-result'>No results found...</p>";
+          }
         }
-    });
+      });
+  })();
 });
