@@ -15,19 +15,14 @@
   <body>
     <header class="page-header" role="banner">
       <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
-      <div id="homeLink"><a style="color:#ffffff" target="_top" href="{{ site.url }}">Home</a></div>
-
-
-      <!-- Add the search field and button -->
-      <form id="search-form" action="/search.html" method="GET">
-         <input type="text" id="search-input" name="query" placeholder="Search...">
-         <button type="submit">Search</button>
-      </form>
+      <div id="homeLink">
+        <a style="color:#ffffff" target="_top" href="{{ site.url }}">Home</a> 
+        <a style="color:#ffffff" target="_top" href="/search.html">Search</a>
+      </div>
     </header>
 
     <main id="content" class="main-content" role="main">
       {{ content }}
-
       <footer class="site-footer">
         {% if site.github.is_project_page %}
           <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
