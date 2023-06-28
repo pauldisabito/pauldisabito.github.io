@@ -21,6 +21,7 @@
         this.field("title", { boost: 10 });
         this.field("content");
         this.ref("url");
+        this.metadataWhitelist = ["position"];
 
         // Add the data to the search index
         data.forEach(function (page) {
@@ -31,8 +32,6 @@
           }
         }, this);
       });
-
-      // console.log("This is the idx object after config function:", idx);
 
       // Perform the search when the user submits the form
       document
@@ -70,7 +69,37 @@
                 var resultPage = pageData[result.ref]; // Look up the page data
                 var url = resultPage.url;
                 var title = resultPage.title;
-                var content = resultPage.content.substring(0, 120) + "...";
+
+                // Get content
+                var content = resultPage.content;
+                // Find the first instance of the search query in the content
+                var firstMatchIndex = content
+                  .toLowerCase()
+                  .indexOf(searchQuery.toLowerCase());
+
+                // Determine the range of characters to display in the search results
+                var start = Math.max(0, firstMatchIndex - 150);
+                var end = Math.min(
+                  content.length,
+                  firstMatchIndex + searchQuery.length + 150
+                );
+                content = content.slice(start, end);
+
+                // Add ... to the start and end of the content extract if it's not the full content
+                if (start > 0) {
+                  content = "..." + content;
+                }
+                if (end < resultPage.content.length) {
+                  content = content + "...";
+                }
+
+                // Highlight the search term in the content
+                var escapedSearchQuery = searchQuery.replace(
+                  /[-\/\\^$*+?.()|[\]{}]/g,
+                  "\\$&"
+                ); // Escape special characters
+                var re = new RegExp("(" + escapedSearchQuery + ")", "gi");
+                content = content.replace(re, "<b>$&</b>");
 
                 // Append the search result as a new list item
                 resultList +=
